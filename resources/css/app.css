@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@config "../../tailwind.config.js";
+@source "../views";
+
+
+:root {
+    font-size: 14px;
+}
