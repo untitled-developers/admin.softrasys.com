@@ -21,12 +21,37 @@ const items = ref([
             name: 'Admins'
         }
     },
+    // {
+    //     label: 'Blobs',
+    //     route: {
+    //         name: 'Blobs'
+    //     }
+    // }
     {
-        label: 'Blobs',
+        label: 'Testimonials',
         route: {
-            name: 'Blobs'
+            name: 'Testimonials'
         }
-    }
+    },
+    {
+        label: 'Faqs',
+        route: {
+            name: 'Faqs'
+        }
+    },
+    {
+        label: 'Forms',
+        items: [
+            {
+                label: 'Contact Forms',
+                route: {
+                    name: 'Contact Forms'
+                }
+            },
+
+        ]
+    },
+
 ]);
 </script>
 

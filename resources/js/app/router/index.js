@@ -21,13 +21,39 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: '/testimonials',
+                    name: 'Testimonials',
+                    component: () => import('@/js/app/pages/testimonials/TheTestimonialsPage.vue'),
+                    meta: {
+                        title: 'Testimonials'
+                    }
+                },
+                {
+                    path: '/faqs',
+                    name: 'Faqs',
+                    component: () => import('@/js/app/pages/faqs/TheFaqsPage.vue'),
+                    meta: {
+                        title: 'Faqs'
+                    }
+                },
+
+                {
                     path: '/blobs',
                     name: 'Blobs',
                     component: () => import('@/js/app/pages/blobs/TheBlobsPage.vue'),
                     meta: {
                         title: 'Blobs'
                     }
-                }
+                },
+                {
+                    path: '/contact_forms',
+                    name: 'Contact Forms',
+                    component: () => import('@/js/app/pages/forms/contactForm/TheContactFormsPage.vue'),
+                    meta: {
+                        title: 'Contact Forms'
+                    }
+                },
+
             ]
         }
     ]

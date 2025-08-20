@@ -13,7 +13,7 @@
         "@vueuse/integrations": "^12.7.0",
         "axios": "^1.6.4",
         "ckeditor5": "^44.3.0",
-        "kockatoos-admin-ui": "github:untitled-developers/kockatoos-admin-ui#v2.0.1",
+        "kockatoos-admin-ui": "github:untitled-developers/kockatoos-admin-ui#v2.1.1",
         "pinia": "^3.0.1",
         "primeicons": "^7.0.0",
         "primevue": "^4.3.3",
