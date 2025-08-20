@@ -40,6 +40,12 @@ const items = ref([
         }
     },
     {
+        label: 'Careers',
+        route: {
+            name: 'Careers'
+        }
+    },
+    {
         label: 'Forms',
         items: [
             {

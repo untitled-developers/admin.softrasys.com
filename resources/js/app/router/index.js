@@ -36,6 +36,14 @@ const router = createRouter({
                         title: 'Faqs'
                     }
                 },
+                {
+                    path: '/careers',
+                    name: 'Careers',
+                    component: () => import('@/js/app/pages/careers/TheCareersPage.vue'),
+                    meta: {
+                        title: 'Careers'
+                    }
+                },
 
                 {
                     path: '/blobs',
