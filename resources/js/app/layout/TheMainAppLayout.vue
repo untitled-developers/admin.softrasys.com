@@ -46,6 +46,13 @@ const items = ref([
         }
     },
     {
+        label: 'Locations',
+        route: {
+            name: 'Locations'
+        }
+    },
+
+    {
         label: 'Forms',
         items: [
             {
