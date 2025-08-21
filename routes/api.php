@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactFormsController;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\CareersController;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +23,9 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::prefix('careers')->group(function (){
         RoutesController::createResourcesRoutes(CareersController::class);
         Route::put('/{id}/toggleHidden', [CareersController::class,'toggleHidden']);
+    });
+    Route::prefix('locations')->group(function (){
+        RoutesController::createResourcesRoutes(LocationsController::class);
+        Route::put('/{id}/toggleHidden', [LocationsController::class,'toggleHidden']);
     });
 });
