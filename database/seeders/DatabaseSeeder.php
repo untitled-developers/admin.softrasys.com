@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             AdminSeeder::class,
             CareerSeeder::class,
+            LocationSeeder::class,
         ]);
     }
 }
