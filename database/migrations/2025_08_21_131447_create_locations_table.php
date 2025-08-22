@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('phone_number')->nullable();
             $table->string('fax_number')->nullable();
             $table->string('support_number')->nullable();
+            $table->decimal('longitude', 19, 16)->nullable();
+            $table->decimal('latitude', 19, 16)->nullable();
             $table->string('location_link')->nullable();
             $table->boolean('is_hidden')->default(false);
             $table->timestamps();

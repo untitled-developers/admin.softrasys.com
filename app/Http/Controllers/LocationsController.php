@@ -29,6 +29,8 @@ class LocationsController extends CrudController
         'locations.support_number',
         'locations.is_hidden',
         'locations.location_link',
+        'locations.latitude',
+        'locations.longitude',
         'locations.created_at',
         'locations.updated_at',
     ];
@@ -41,6 +43,8 @@ class LocationsController extends CrudController
             SearchableField::create('locations.email', SearchTypes::$CONTAINS),
             SearchableField::create('locations.phone_number', SearchTypes::$CONTAINS),
             SearchableField::create('locations.address', SearchTypes::$CONTAINS),
+            SearchableField::create('locations.longitude', SearchTypes::$CONTAINS),
+            SearchableField::create('locations.latitude', SearchTypes::$CONTAINS),
         ];
     }
 
@@ -53,12 +57,14 @@ class LocationsController extends CrudController
 
         $model->name = $data->name;
         $model->sort_number  = $data->sort_number ?? 0;
-        $model->address = $data->address  ?? null;;
+        $model->address = $data->address  ?? null;
         $model->email = $data->email ?? null;
-        $model->phone_number = $data->phone_number ?? null;;
-        $model->fax_number = $data->fax_number ?? null;;
-        $model->support_number= $data->support_number ?? null;;
-        $model->location_link = $data->location_link ?? null;;
+        $model->phone_number = $data->phone_number ?? null;
+        $model->fax_number = $data->fax_number ?? null;
+        $model->latitude = $data->latitude ?? null;
+        $model->longitude = $data->longitude ?? null;
+        $model->support_number= $data->support_number ?? null;
+        $model->location_link = $data->location_link ?? null;
 
         $model->save();
         return $model;
