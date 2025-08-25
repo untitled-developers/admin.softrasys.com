@@ -6,10 +6,7 @@
             <template #columns>
                 <Column field="id" header="ID" :sortable="true"></Column>
                 <Column field="name" header="Name" :sortable="true"></Column>
-                <Column field="email" header="email" :sortable="true"></Column>
                 <Column field="phone_number" header="Phone" :sortable="true"></Column>
-                <Column field="fax_number" header="Fax Number" :sortable="true"></Column>
-                <Column field="support_number" header="Support Number" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
                 <Column field="is_hidden" header="Status" :sortable="true">
                     <template #body="{data}">

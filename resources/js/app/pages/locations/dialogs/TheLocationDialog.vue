@@ -31,18 +31,18 @@
 
                 <BaseInputContainer
                     label="Phone Number*"
-                    :errors="getErrors('phone')"
+                    :errors="getErrors('phone_number')"
                     :show-errors="didSubmit">
                     <InputText v-model="form.phone_number"/>
                 </BaseInputContainer>
                 <BaseInputContainer
-                    label="Fax Number*"
+                    label="Fax Number"
                     :errors="getErrors('fax_number')"
                     :show-errors="didSubmit">
                     <InputText v-model="form.fax_number"/>
                 </BaseInputContainer>
                 <BaseInputContainer
-                    label="Support Number*"
+                    label="Support Number"
                     :errors="getErrors('support_number')"
                     :show-errors="didSubmit">
                     <InputText v-model="form.support_number"/>
@@ -55,7 +55,7 @@
                 </BaseInputContainer>
                 <BaseInputContainer
                     label="Location Link*"
-                    :errors="getErrors('link')"
+                    :errors="getErrors('location_link')"
                     :show-errors="didSubmit">
                     <InputText v-model="form.location_link"/>
                 </BaseInputContainer>
@@ -65,6 +65,15 @@
                 >
                     <InputNumber class="w-full" v-model="form.sort_number"/>
                 </BaseInputContainer>
+                <BaseInputContainer
+                    label="Map">
+                    <BaseLocationInput
+                        @change="handleLocationUpdate"
+                        :latitude="form.latitude"
+                        :longitude="form.longitude"
+                        class="min-h-[250px]"
+                    />
+                </BaseInputContainer>
 
             </form>
         </template>
@@ -72,7 +81,7 @@
 </template>
 
 <script setup>
-import BaseSingleImageUploader from "kockatoos-admin-ui/components/BaseSingleImageUploader.vue";
+import BaseLocationInput from "kockatoos-admin-ui/components/BaseLocationInput.vue";
 import BaseEditDialog from "kockatoos-admin-ui/components/BaseEditDialog.vue";
 import InputText from "primevue/inputtext";
 import InputNumber from "primevue/inputnumber";
@@ -101,18 +110,24 @@ const form = ref({
     location_link: '',
     sort_number: 0,
     image: null,
+    latitude: null,
+    longitude: null,
 
 })
 
 
 const formSchema = createFormSchema(zod.object({
         name: zod.string().nonempty('Title is required'),
-    phone_number: zod.string().nonempty('Phone number is required'),
+        phone_number: zod.string().nonempty('Phone number is required'),
         address: zod.string().nonempty('Address is required'),
-    location_link: zod.string().url('Link must be a valid URL').nonempty('Link is required'),
+        location_link: zod.string().url('Link must be a valid URL').nonempty('Link is required'),
 
     })
 )
+function handleLocationUpdate(location) {
+    form.value.latitude = location.latitude
+    form.value.longitude = location.longitude
+}
 
 
 function requestBodyMapper(data) {
