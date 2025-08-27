@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('industry')->nullable();
             $table->string('phone_number');
-            $table->unsignedInteger('number_of_vehicles')->nullable();
+            $table->string('number_of_vehicles')->nullable();
             $table->string('country')->nullable();
             $table->text('message')->nullable();
             $table->timestamps();

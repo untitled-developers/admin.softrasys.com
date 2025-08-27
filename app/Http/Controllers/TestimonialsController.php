@@ -46,7 +46,6 @@ class TestimonialsController extends CrudController
         $model->name = $data->name;
         $model->description = $data->description ?? null;
         $model->sort_number = $data->sort_number ?? 0;
-        $model->is_hidden = $data->is_hidden ?? false;
 
         $model->save();
         return $model;
