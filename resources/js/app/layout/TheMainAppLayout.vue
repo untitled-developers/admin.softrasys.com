@@ -1,7 +1,7 @@
 <template>
     <BaseMainLayout :navigation-items="items">
         <template #logo>
-            <img src="images/logo.png" class="h-28 w-auto p-1">
+            <img src="images/logo.png" class=" w-auto pr-[20px] py-2  object-contain">
         </template>
         <template #main>
             <router-view></router-view>
@@ -45,6 +45,13 @@ const items = ref([
             name: 'Careers'
         }
     },
+    {
+        label: 'Locations',
+        route: {
+            name: 'Locations'
+        }
+    },
+
     {
         label: 'Forms',
         items: [
