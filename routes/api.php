@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ContactFormsController;
+use App\Http\Controllers\DemoRequestsController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\ResellersController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\CareersController;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +30,11 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         RoutesController::createResourcesRoutes(LocationsController::class);
         Route::put('/{id}/toggleHidden', [LocationsController::class,'toggleHidden']);
     });
+    Route::prefix('reseller')->group(function (){
+        RoutesController::createResourcesRoutes(ResellersController::class);
+    });
+    Route::prefix('demoRequests')->group(function (){
+        RoutesController::createResourcesRoutes(DemoRequestsController::class);
+    });
+
 });
