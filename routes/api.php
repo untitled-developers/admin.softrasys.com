@@ -30,7 +30,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         RoutesController::createResourcesRoutes(LocationsController::class);
         Route::put('/{id}/toggleHidden', [LocationsController::class,'toggleHidden']);
     });
-    Route::prefix('reseller')->group(function (){
+    Route::prefix('resellerForms')->group(function (){
         RoutesController::createResourcesRoutes(ResellersController::class);
     });
     Route::prefix('demoRequests')->group(function (){
