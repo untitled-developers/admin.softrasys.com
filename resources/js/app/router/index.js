@@ -68,6 +68,22 @@ const router = createRouter({
                         title: 'Contact Forms'
                     }
                 },
+                {
+                    path: '/reseller_forms',
+                    name: 'Reseller Forms',
+                    component: () => import('@/js/app/pages/forms/resellerForm/TheResellerFormsPage.vue'),
+                    meta: {
+                        title: 'Reseller Forms'
+                    }
+                },
+                {
+                    path: '/demo_forms',
+                    name: 'Demo Forms',
+                    component: () => import('@/js/app/pages/forms/demoForm/TheDemoFormsPage.vue'),
+                    meta: {
+                        title: 'Demo Forms'
+                    }
+                },
 
             ]
         }

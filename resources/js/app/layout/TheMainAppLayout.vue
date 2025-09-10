@@ -61,6 +61,18 @@ const items = ref([
                     name: 'Contact Forms'
                 }
             },
+            {
+                label: 'Reseller Forms',
+                route: {
+                    name: 'Reseller Forms'
+                }
+            },
+            {
+                label: 'Demo Forms',
+                route: {
+                    name: 'Demo Forms'
+                }
+            },
 
         ]
     },

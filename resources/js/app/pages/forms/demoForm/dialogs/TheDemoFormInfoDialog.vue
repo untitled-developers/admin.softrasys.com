@@ -1,9 +1,9 @@
 <template>
     <BaseEditDialog
         :record="record"
-        record-type="Reseller Form"
+        record-type="Demo Form"
         :with-submit="false"
-        title="Reseller Form"
+        title="demo Form"
         width="800px"
         :position="position"
         @close="emit('close')"
@@ -39,16 +39,11 @@
                     </div>
                     <div
                         class="bg-white px-6 py-4 hover:bg-gray-50 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
-                        <dt class="font-semibold text-gray-800">Website</dt>
-                        <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.website }}</dd>
-                    </div>
-                    <div
-                        class="bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
                         <dt class="font-semibold text-gray-800">Message</dt>
                         <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.message }}</dd>
                     </div>
                     <div
-                        class="bg-white px-6 py-4 hover:bg-gray-50 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
+                        class="bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
                         <dt class="font-semibold text-gray-800">Submission Date</dt>
                         <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">
                             {{ formatDateTime(record.created_at) }}
