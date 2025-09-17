@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class FaqLanguage extends Pivot
 {
-    protected $table = 'faqs_languages';
+    protected $table = 'faq_languages';
 
     public function language(): BelongsTo
     {
