@@ -7,72 +7,37 @@ use Illuminate\Database\Seeder;
 
 class CareerSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        DB::table('careers')->insert([
-            [
-                'title' => 'Software Engineer',
-                'short_description' => 'Builds and maintains software applications.',
-                'type' => 'Full-time',
-                'description' => 'Responsible for designing, developing, and deploying software solutions. Works with cross-functional teams to deliver high-quality applications.',
-                'is_hidden' => 0,
-                'sort_number' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Graphic Designer',
-                'short_description' => 'Creates visual content and branding.',
-                'type' => 'Part-time',
-                'description' => 'Designs marketing materials, websites, and branding assets to enhance company image. Works closely with marketing and product teams.',
-                'is_hidden' => 0,
-                'sort_number' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Project Manager',
-                'short_description' => 'Oversees projects and ensures deadlines are met.',
-                'type' => 'Contract',
-                'description' => 'Plans, executes, and finalizes projects according to deadlines and budgets. Manages resources, risks, and stakeholders.',
-                'is_hidden' => 0,
-                'sort_number' => 3,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Data Analyst',
-                'short_description' => 'Analyzes data to provide business insights.',
-                'type' => 'Full-time',
-                'description' => 'Collects, processes, and analyzes large data sets to help organizations make data-driven decisions. Creates reports and dashboards.',
-                'is_hidden' => 0,
-                'sort_number' => 4,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'Content Writer',
-                'short_description' => 'Writes engaging content for web and marketing.',
-                'type' => 'Freelance',
-                'description' => 'Creates blog posts, articles, and website content. Works with SEO and marketing teams to improve online visibility.',
-                'is_hidden' => 0,
-                'sort_number' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'title' => 'HR Specialist',
-                'short_description' => 'Manages recruitment and employee relations.',
-                'type' => 'Full-time',
-                'description' => 'Handles employee hiring, onboarding, training, and workplace policies. Ensures compliance with labor laws.',
-                'is_hidden' => 0,
-                'sort_number' => 6,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        $careers = [
+            ['type' => 'Full-time', 'sort_number' => 1, 'title' => 'Software Engineer', 'short' => 'Builds and maintains software applications.', 'desc' => 'Responsible for designing, developing, and deploying software solutions. Works with cross-functional teams to deliver high-quality applications.'],
+            ['type' => 'Part-time', 'sort_number' => 2, 'title' => 'Graphic Designer', 'short' => 'Creates visual content and branding.', 'desc' => 'Designs marketing materials, websites, and branding assets to enhance company image. Works closely with marketing and product teams.'],
+            ['type' => 'Contract',  'sort_number' => 3, 'title' => 'Project Manager', 'short' => 'Oversees projects and ensures deadlines are met.', 'desc' => 'Plans, executes, and finalizes projects according to deadlines and budgets. Manages resources, risks, and stakeholders.'],
+            ['type' => 'Full-time', 'sort_number' => 4, 'title' => 'Data Analyst', 'short' => 'Analyzes data to provide business insights.', 'desc' => 'Collects, processes, and analyzes large data sets to help organizations make data-driven decisions. Creates reports and dashboards.'],
+            ['type' => 'Freelance', 'sort_number' => 5, 'title' => 'Content Writer', 'short' => 'Writes engaging content for web and marketing.', 'desc' => 'Creates blog posts, articles, and website content. Works with SEO and marketing teams to improve online visibility.'],
+            ['type' => 'Full-time', 'sort_number' => 6, 'title' => 'HR Specialist', 'short' => 'Manages recruitment and employee relations.', 'desc' => 'Handles employee hiring, onboarding, training, and workplace policies. Ensures compliance with labor laws.'],
+        ];
+
+        foreach ($careers as $index => $career) {
+            $careerId = DB::table('careers')->insertGetId([
+                'type'        => $career['type'],
+                'is_hidden'   => 0,
+                'sort_number' => $career['sort_number'],
+                'created_at'  => now(),
+                'updated_at'  => now(),
+            ]);
+
+            foreach ([1, 2, 3] as $langId) {
+                DB::table('career_languages')->insert([
+                    'job_title'         => $career['title'],
+                    'short_description' => $career['short'],
+                    'job_description'   => $career['desc'],
+                    'career_id'         => $careerId,
+                    'language_id'       => $langId,
+                    'created_at'        => now(),
+                    'updated_at'        => now(),
+                ]);
+            }
+        }
     }
 }
