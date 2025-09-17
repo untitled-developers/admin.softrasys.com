@@ -15,7 +15,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::prefix('testimonials')->group(function () {
         RoutesController::createResourcesRoutes(TestimonialsController::class);
         Route::put('/{id}/toggleHidden', [TestimonialsController::class,'toggleHidden']);
-        Route::get('/{career}', [TestimonialsController::class, 'getRecord']);
+        Route::get('/{testimonial}', [TestimonialsController::class, 'getRecord']);
     });
     Route::prefix('contactForms')->group(function (){
         RoutesController::createResourcesRoutes(ContactFormsController::class);
