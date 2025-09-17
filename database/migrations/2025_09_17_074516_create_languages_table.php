@@ -23,12 +23,12 @@ return new class extends Migration {
             'code' => 'en',
         ]);
         Language::query()->create([
-            'name' => 'Arabic',
-            'code' => 'ar',
-        ]);
-        Language::query()->create([
             'name' => 'French',
             'code' => 'fr',
+        ]);
+        Language::query()->create([
+            'name' => 'Arabic',
+            'code' => 'ar',
         ]);
 
     }
