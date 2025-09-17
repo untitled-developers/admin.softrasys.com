@@ -49,10 +49,6 @@ class LanguagesController extends CrudController
     {
         return
             parent::builder()
-                ->select($this->selectColumns)
-                ->leftJoin('website_languages', 'website_languages.language_id', '=', 'languages.id')
-                ->where('website_languages.website_id', '=', \request()->session()->get('website_id'));
-
     }
 
 
