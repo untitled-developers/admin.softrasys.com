@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('testimonials', function (Blueprint $table) {
-            $table->dropColumn('description');
+            $table->dropColumn(['description', 'name']);
         });
     }
 
@@ -17,7 +17,7 @@ return new class extends Migration
     {
         Schema::table('testimonials', function (Blueprint $table) {
             $table->text('description')->nullable();
+            $table->string('name');
         });
     }
 };
-
