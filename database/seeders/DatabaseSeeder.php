@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
 //            CareerSeeder::class,
             LocationSeeder::class,
-            TestimonialSeeder::class,
+//            TestimonialSeeder::class,
         ]);
     }
 }
