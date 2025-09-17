@@ -48,8 +48,7 @@ class LanguagesController extends CrudController
     protected function builder(): Builder
     {
         return
-            parent::builder()
+            parent::builder();
     }
-
 
 }
