@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactFormsController;
 use App\Http\Controllers\DemoRequestsController;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ResellersController;
 use App\Http\Controllers\TestimonialsController;
@@ -25,6 +26,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::prefix('careers')->group(function (){
         RoutesController::createResourcesRoutes(CareersController::class);
         Route::put('/{id}/toggleHidden', [CareersController::class,'toggleHidden']);
+        Route::get('/{career}', [CareersController::class, 'getRecord']);
     });
     Route::prefix('locations')->group(function (){
         RoutesController::createResourcesRoutes(LocationsController::class);
@@ -36,5 +38,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::prefix('demoRequests')->group(function (){
         RoutesController::createResourcesRoutes(DemoRequestsController::class);
     });
-
+    Route::prefix('languages')->name('languages')->group(function () {
+        RoutesController::createResourcesRoutes(LanguagesController::class);
+    });
 });

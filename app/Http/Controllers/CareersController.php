@@ -86,6 +86,18 @@ class CareersController extends CrudController
             ->where('career_languages.language_id', '=', 1); // Default to first language
     }
 
+    public function getRecord(Career $career)
+    {
+        $languages = $career->languages->toArray();
+        $career = $career->toArray();
+
+        $career['languages'] = [];
+        foreach ($languages as $language) {
+            $career['languages'][$language['code']] = $language['pivot'];
+        }
+        return response()->json($career);
+    }
+
     public function toggleHidden($id)
     {
         $model = $this->getModel($id);
