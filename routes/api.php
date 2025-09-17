@@ -23,6 +23,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     Route::prefix('faqs')->group(function (){
         RoutesController::createResourcesRoutes(FaqsController::class);
         Route::put('/{id}/toggleHidden', [FaqsController::class, 'toggleHidden']);
+        Route::get('/{faq}', [FaqsController::class, 'getRecord']);
     });
     Route::prefix('careers')->group(function (){
         RoutesController::createResourcesRoutes(CareersController::class);
