@@ -13,6 +13,7 @@ class Career extends BaseModel
             ->withPivot([
                 'job_title',
                 'job_description',
+                'short_description',
                 'career_id',
                 'language_id',
             ])
