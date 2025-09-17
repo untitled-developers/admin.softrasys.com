@@ -5,7 +5,7 @@
                        ref="crudTable">
             <template #columns>
                 <Column field="id" header="ID" :sortable="true"></Column>
-                <Column field="title" header="Title" :sortable="true"></Column>
+                <Column field="job_title" header="Title" :sortable="true"></Column>
                 <Column field="type" header="Type" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
                 <Column field="is_hidden" header="Status" :sortable="true">

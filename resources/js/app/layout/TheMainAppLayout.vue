@@ -11,8 +11,8 @@
 
 <script setup>
 import BaseMainLayout from "kockatoos-admin-ui/components/BaseMainLayout.vue";
-import {ref} from "vue";
-
+import {useLanguagesStore} from "kockatoos-admin-ui/stores/LanguagesStore.js";
+import {onMounted, ref} from "vue";
 
 const items = ref([
     {
@@ -78,6 +78,16 @@ const items = ref([
     },
 
 ]);
+const languageStore = useLanguagesStore()
+const didLoadLanguages = ref(false)
+async function fetchLanguages() {
+    await languageStore.fetchLanguages()
+    didLoadLanguages.value = true
+}
+onMounted(() => {
+    fetchLanguages()
+
+})
 </script>
 
 <style scoped>
