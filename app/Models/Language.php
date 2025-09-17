@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 
 class Language extends BaseModel
 {

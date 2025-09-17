@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 
 class Career extends BaseModel
