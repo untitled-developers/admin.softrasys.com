@@ -12,7 +12,10 @@ class CareerLanguage extends BaseModel
     {
         return $this->belongsTo(Career::class);
     }
-
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
     public function language()
     {
         return $this->belongsTo(Language::class);
