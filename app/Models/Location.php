@@ -7,5 +7,5 @@ use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 
 class Location extends BaseModel
 {
-    //
+
 }
