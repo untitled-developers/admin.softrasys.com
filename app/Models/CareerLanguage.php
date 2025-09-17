@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class CareerLanguage extends BaseModel
+class CareerLanguage extends Pivot
 {
     public function career()
     {
