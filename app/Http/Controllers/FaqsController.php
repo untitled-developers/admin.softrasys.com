@@ -27,6 +27,7 @@ class FaqsController extends CrudController
         'faqs.id',
         'faqs.sort_number',
         'faqs.is_hidden',
+        'faqs.is_featured',
         'faqs.created_at',
         'faqs.updated_at',
         'faq_languages.question',
@@ -41,6 +42,7 @@ class FaqsController extends CrudController
             SearchableField::create('faq_languages.answer', SearchTypes::$CONTAINS),
             SearchableField::create('faqs.sort_number', SearchTypes::$EXACT),
             SearchableField::create('faqs.is_hidden', SearchTypes::$EXACT),
+            SearchableField::create('faqs.is_featured', SearchTypes::$EXACT),
         ];
     }
 
@@ -91,6 +93,15 @@ class FaqsController extends CrudController
             $faq['languages'][$language['code']] = $language['pivot'];
         }
         return response()->json($faq);
+    }
+
+    public function toggleFeatured($id)
+    {
+        $model = $this->getModel($id);
+        $model->is_featured = !$model->is_featured;
+        $model->save();
+
+        return response()->json($this->getModel($id));
     }
 
     public function toggleHidden($id)
