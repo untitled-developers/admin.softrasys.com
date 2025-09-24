@@ -52,6 +52,7 @@ class FaqSeeder extends Seeder
             // Insert into base faqs table
             $faqId = DB::table('faqs')->insertGetId([
                 'is_hidden'   => 0,
+                'is_featured'   => 1,
                 'sort_number' => $index + 1,
                 'created_at'  => now(),
                 'updated_at'  => now(),
