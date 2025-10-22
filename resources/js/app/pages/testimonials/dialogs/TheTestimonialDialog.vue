@@ -56,12 +56,10 @@
 
                                         <BaseInputContainer
                                             label="Description">
-
-                                            <BaseRichEditor
-                                                place-holder="Write description here"
-                                                v-model="form.languages[lang.code].description"
-                                                :language="lang.code"
-                                                ref="editor"/>
+                                            <Textarea class="w-full"
+                                                      v-model="form.languages[lang.code].description"
+                                                      :maxlength="1000"
+                                                      :rows="5"/>
                                         </BaseInputContainer>
                                     </div>
                                 </TabPanel>
@@ -77,7 +75,7 @@
 </template>
 
 <script setup>
-
+import Textarea from "primevue/textarea";
 import BaseRichEditor from "kockatoos-admin-ui/components/BaseRichEditor.vue";
 import BaseEditDialog from "kockatoos-admin-ui/components/BaseEditDialog.vue";
 import InputText from "primevue/inputtext";
