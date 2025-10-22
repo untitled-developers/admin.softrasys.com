@@ -58,7 +58,7 @@
                                             label="Description">
                                             <Textarea class="w-full"
                                                       v-model="form.languages[lang.code].description"
-                                                      :maxlength="1000"
+                                                      :maxlength="240"
                                                       :rows="5"/>
                                         </BaseInputContainer>
                                     </div>
