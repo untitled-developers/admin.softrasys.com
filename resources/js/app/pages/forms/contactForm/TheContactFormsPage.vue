@@ -8,11 +8,12 @@
             <template #columns>
                 <Column field="id" header="ID" :sortable="true"/>
                 <Column field="name" header="Name" :sortable="true"/>
-                <Column field="phone" header="Phone" :sortable="true"/>
+                <Column field="phone_number" header="Phone" :sortable="true"/>
                 <Column field="email" header="Email" :sortable="true"/>
                 <Column field="industry" header="Industry" :sortable="true"/>
                 <Column field="number_of_vehicles" header="Number of Vehicles" :sortable="true"/>
                 <Column field="country" header="Country" :sortable="true"/>
+                <Column field="source" header="Source" :sortable="true"/>
                 <Column field="created_at" header="Submission Date" :sortable="true"/>
             </template>
         </BaseCrudTable>
