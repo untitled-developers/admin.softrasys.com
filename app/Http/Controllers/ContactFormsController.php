@@ -29,6 +29,7 @@ class ContactFormsController extends CrudController
         'contact_forms.message',
         'contact_forms.created_at',
         'contact_forms.updated_at',
+        'contact_forms.source'
     ];
 
     public function __construct()
@@ -54,6 +55,7 @@ class ContactFormsController extends CrudController
         $model->number_of_vehicles = $data->number_of_vehicles ?? 0;
         $model->country = $data->country ?? null;
         $model->message = $data->message ?? null;
+        $model->source = $data->source ?? null;
 
         $model->save();
         return $model;
