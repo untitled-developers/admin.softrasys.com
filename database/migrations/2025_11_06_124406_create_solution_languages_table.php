@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('short_description')->nullable();
             $table->text('long_description')->nullable();
             $table->string('btn_text')->nullable();
-            $table->string('meta_description')->nullable();
+            $table->text('meta_description')->nullable();
             $table->timestamps();
         });
     }
