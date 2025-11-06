@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Solution;
-use App\Models\SolutionLanguage;
-use Illuminate\Support\Str;
+use App\Models\Industry;
+use App\Models\IndustryLanguage;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\CrudController;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchableField;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchTypes;
@@ -14,39 +13,40 @@ use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
+use Illuminate\Support\Str;
 
-class SolutionsController extends CrudController
+class IndustriesController extends CrudController
 {
-    protected string $table = 'solutions';
-    protected string $modelClass = Solution::class;
-    protected string $languageModelClass = SolutionLanguage::class;
-    protected string $filesDirectory = 'solutions';
+    protected string $table = 'industries';
+    protected string $modelClass = Industry::class;
+    protected string $languageModelClass = IndustryLanguage::class;
+    protected string $filesDirectory = 'industries';
     protected array $searchFields;
     protected bool $safeDelete = false;
 
     protected array $selectColumns = [
-        'solutions.id',
-        'solutions.sort_number',
-        'solutions.is_hidden',
-        'solutions.slug',
-        'solutions.btn_href',
-        'solutions.created_at',
-        'solutions.updated_at',
-        'solution_languages.meta_description',
-        'solution_languages.name',
-        'solution_languages.short_description',
-        'solution_languages.long_description',
-        'solution_languages.btn_text',
+        'industries.id',
+        'industries.sort_number',
+        'industries.is_hidden',
+        'industries.slug',
+        'industries.btn_href',
+        'industries.created_at',
+        'industries.updated_at',
+        'industry_languages.name',
+        'industry_languages.short_description',
+        'industry_languages.long_description',
+        'industry_languages.btn_text',
+        'industry_languages.meta_description',
     ];
 
     public function __construct()
     {
         $this->searchFields = [
-            SearchableField::create('solutions.id', SearchTypes::$EXACT),
-            SearchableField::create('solution_languages.name', SearchTypes::$CONTAINS),
-            SearchableField::create('solution_languages.short_description', SearchTypes::$CONTAINS),
-            SearchableField::create('solutions.slug', SearchTypes::$CONTAINS),
-            SearchableField::create('solutions.is_hidden', SearchTypes::$EXACT),
+            SearchableField::create('industries.id', SearchTypes::$EXACT),
+            SearchableField::create('industry_languages.name', SearchTypes::$CONTAINS),
+            SearchableField::create('industry_languages.short_description', SearchTypes::$CONTAINS),
+            SearchableField::create('industries.slug', SearchTypes::$CONTAINS),
+            SearchableField::create('industries.is_hidden', SearchTypes::$EXACT),
         ];
     }
 
@@ -60,10 +60,10 @@ class SolutionsController extends CrudController
             $model->blob_id = $data->blob_id ?? null;
             $model->is_hidden = $data->is_hidden ?? false;
             $model->sort_number = $data->sort_number ?? 0;
-            $model->slug = Str::slug($data->languages->en->title);
-            $model->slug = $model->slug . "-" . $model->id;
             $model->btn_href = $data->btn_href ?? null;
             $model->meta_description = $data->meta_description ?? null;
+            $slug = \Str::slug($data->languages->en->name);
+            $model->slug = $slug . '-' . $model->id;
 
             $model->save();
 
@@ -85,25 +85,26 @@ class SolutionsController extends CrudController
         return $model;
     }
 
+
     protected function builder(): Builder
     {
         return parent::builder()
-            ->leftJoin('solution_languages', 'solution_languages.solution_id', '=', 'solutions.id')
-            ->leftJoin('languages', 'solution_languages.language_id', '=', 'languages.id')
-            ->where('solution_languages.language_id', '=', 1);
+            ->leftJoin('industry_languages', 'industry_languages.industry_id', '=', 'industries.id')
+            ->leftJoin('languages', 'industry_languages.language_id', '=', 'languages.id')
+            ->where('industry_languages.language_id', '=', 1);
     }
 
-    public function getRecord(Solution $solution)
+    public function getRecord(Industry $industry)
     {
-        $languages = $solution->languages->toArray();
-        $solution = $solution->toArray();
+        $languages = $industry->languages->toArray();
+        $industry = $industry->toArray();
 
-        $solution['languages'] = [];
+        $industry['languages'] = [];
         foreach ($languages as $language) {
-            $solution['languages'][$language['code']] = $language['pivot'];
+            $industry['languages'][$language['code']] = $language['pivot'];
         }
 
-        return response()->json($solution);
+        return response()->json($industry);
     }
 
     public function toggleHidden($id)

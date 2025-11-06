@@ -6,11 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
-        Schema::create('solution_languages', function (Blueprint $table) {
+        Schema::create('industry_languages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('solution_id')->constrained('solutions')->onDelete('cascade');
+            $table->foreignId('industry_id')->constrained('industries')->onDelete('cascade');
             $table->foreignId('language_id')
                 ->constrained('languages')
                 ->onDelete('cascade')
@@ -26,6 +29,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('solution_languages');
+        Schema::dropIfExists('industry_languages');
     }
 };

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactFormsController;
 use App\Http\Controllers\DemoRequestsController;
 use App\Http\Controllers\FaqsController;
+use App\Http\Controllers\IndustriesController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ResellersController;
@@ -49,5 +50,10 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         RoutesController::createResourcesRoutes(SolutionsController::class);
         Route::put('/{id}/toggleHidden', [SolutionsController::class,'toggleHidden']);
         Route::get('/{solution}', [SolutionsController::class, 'getRecord']);
+    });
+    Route::prefix('industries')->group(function () {
+        RoutesController::createResourcesRoutes(IndustriesController::class);
+        Route::put('/{id}/toggleHidden', [IndustriesController::class,'toggleHidden']);
+        Route::get('/{solution}', [IndustriesController::class, 'getRecord']);
     });
 });
