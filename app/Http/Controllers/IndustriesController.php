@@ -37,6 +37,7 @@ class IndustriesController extends CrudController
         'industry_languages.long_description',
         'industry_languages.btn_text',
         'industry_languages.meta_description',
+        'blobs.url as blob_url',
     ];
 
     public function __construct()
