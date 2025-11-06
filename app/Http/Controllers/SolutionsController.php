@@ -63,13 +63,12 @@ class SolutionsController extends CrudController
             $model->slug = Str::slug($data->languages->en->name);
             $model->slug = $model->slug . "-" . $model->id;
             $model->btn_href = $data->btn_href ?? null;
-            $model->meta_description = $data->meta_description ?? null;
 
             $model->save();
 
             if (property_exists($data, 'languages')) {
                 $this->updateLanguages(
-                    ['name', 'short_description', 'long_description', 'btn_text'],
+                    ['name', 'short_description', 'long_description', 'btn_text', 'meta_description'],
                     json_decode(json_encode($data->languages), true),
                     $model->id,
                 );
