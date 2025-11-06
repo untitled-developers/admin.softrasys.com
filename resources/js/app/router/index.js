@@ -45,6 +45,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: '/solutions',
+                    name: 'solutions',
+                    component: () => import('@/js/app/pages/solutions/TheSolutionsPage.vue'),
+                    meta: {
+                        title: 'solutions'
+                    }
+                },
+                {
                     path: '/locations',
                     name: 'Locations',
                     component: () => import('@/js/app/pages/locations/TheLocationsPage.vue'),
