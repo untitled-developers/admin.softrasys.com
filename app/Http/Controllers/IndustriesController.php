@@ -56,8 +56,7 @@ class IndustriesController extends CrudController
             DB::beginTransaction();
 
             $data = $this->initSaveModel($request, $model);
-
-            $model->blob_id = $data->blob_id ?? null;
+            
             $model->is_hidden = $data->is_hidden ?? false;
             $model->sort_number = $data->sort_number ?? 0;
             $model->btn_href = $data->btn_href ?? null;

@@ -58,7 +58,6 @@ class SolutionsController extends CrudController
 
             $data = $this->initSaveModel($request, $model);
 
-            $model->blob_id = $data->blob_id ?? null;
             $model->is_hidden = $data->is_hidden ?? false;
             $model->sort_number = $data->sort_number ?? 0;
             $model->slug = Str::slug($data->languages->en->name);
