@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Solution;
 use App\Models\SolutionLanguage;
+use Illuminate\Support\Str;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\CrudController;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchableField;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchTypes;
@@ -59,7 +60,8 @@ class SolutionsController extends CrudController
             $model->blob_id = $data->blob_id ?? null;
             $model->is_hidden = $data->is_hidden ?? false;
             $model->sort_number = $data->sort_number ?? 0;
-            $model->slug = $data->slug ?? 'any';
+            $model->slug = Str::slug($data->languages->en->title);
+            $model->slug = $model->slug . "-" . $model->id;
             $model->btn_href = $data->btn_href ?? null;
             $model->meta_description = $data->meta_description ?? null;
 
