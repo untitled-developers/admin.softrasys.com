@@ -61,6 +61,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: '/accessory',
+                    name: 'Accessory',
+                    component: () => import('@/js/app/pages/accessories/TheAccessoriesPage.vue'),
+                    meta: {
+                        title: 'Accessory'
+                    }
+                },
+                {
                     path: '/locations',
                     name: 'Locations',
                     component: () => import('@/js/app/pages/locations/TheLocationsPage.vue'),

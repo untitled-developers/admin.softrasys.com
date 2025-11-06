@@ -58,6 +58,12 @@ const items = ref([
         }
     },
     {
+        label: 'Accessory',
+        route: {
+            name: 'Accessory'
+        }
+    },
+    {
         label: 'Locations',
         route: {
             name: 'Locations'
