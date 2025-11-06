@@ -37,6 +37,7 @@ class SolutionsController extends CrudController
         'solution_languages.short_description',
         'solution_languages.long_description',
         'solution_languages.btn_text',
+        'blobs.url as blob_url',
     ];
 
     public function __construct()
@@ -89,6 +90,7 @@ class SolutionsController extends CrudController
         return parent::builder()
             ->leftJoin('solution_languages', 'solution_languages.solution_id', '=', 'solutions.id')
             ->leftJoin('languages', 'solution_languages.language_id', '=', 'languages.id')
+            ->leftJoin('blobs', 'solutions.blob_id', '=', 'blobs.id')
             ->where('solution_languages.language_id', '=', 1);
     }
 
