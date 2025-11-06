@@ -59,7 +59,7 @@ class SolutionsController extends CrudController
             $model->blob_id = $data->blob_id ?? null;
             $model->is_hidden = $data->is_hidden ?? false;
             $model->sort_number = $data->sort_number ?? 0;
-//            $model->slug = $data->slug;
+            $model->slug = $data->slug ?? 'any';
             $model->btn_href = $data->btn_href ?? null;
             $model->meta_description = $data->meta_description ?? null;
 
