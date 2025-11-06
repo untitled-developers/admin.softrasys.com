@@ -6,6 +6,7 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ResellersController;
+use App\Http\Controllers\SolutionsController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\CareersController;
 use Illuminate\Support\Facades\Route;
@@ -43,5 +44,10 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('languages')->name('languages')->group(function () {
         RoutesController::createResourcesRoutes(LanguagesController::class);
+    });
+    Route::prefix('solutions')->group(function () {
+        RoutesController::createResourcesRoutes(SolutionsController::class);
+        Route::put('/{id}/toggleHidden', [SolutionsController::class,'toggleHidden']);
+        Route::get('/{solution}', [SolutionsController::class, 'getRecord']);
     });
 });
