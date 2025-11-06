@@ -89,6 +89,7 @@ class IndustriesController extends CrudController
         return parent::builder()
             ->leftJoin('industry_languages', 'industry_languages.industry_id', '=', 'industries.id')
             ->leftJoin('languages', 'industry_languages.language_id', '=', 'languages.id')
+            ->leftJoin('blobs', 'solutions.blob_id', '=', 'blobs.id')
             ->where('industry_languages.language_id', '=', 1);
     }
 
