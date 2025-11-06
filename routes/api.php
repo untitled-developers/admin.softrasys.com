@@ -53,7 +53,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('industries')->group(function () {
         RoutesController::createResourcesRoutes(IndustriesController::class);
-        Route::put('/{id}/toggleHidden', [IndustriesController::class,'toggleHidden']);
         Route::get('/{industry}', [IndustriesController::class, 'getRecord']);
+        Route::put('/{id}/toggleHidden', [IndustriesController::class,'toggleHidden']);
     });
 });

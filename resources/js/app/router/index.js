@@ -46,10 +46,18 @@ const router = createRouter({
                 },
                 {
                     path: '/solutions',
-                    name: 'solutions',
+                    name: 'Solutions',
                     component: () => import('@/js/app/pages/solutions/TheSolutionsPage.vue'),
                     meta: {
-                        title: 'solutions'
+                        title: 'Solutions'
+                    }
+                },
+                {
+                    path: '/industries',
+                    name: 'Industries',
+                    component: () => import('@/js/app/pages/industries/TheIndustriesPage.vue'),
+                    meta: {
+                        title: 'Industries'
                     }
                 },
                 {
