@@ -56,11 +56,10 @@ class IndustriesController extends CrudController
             DB::beginTransaction();
 
             $data = $this->initSaveModel($request, $model);
-            
+
             $model->is_hidden = $data->is_hidden ?? false;
             $model->sort_number = $data->sort_number ?? 0;
             $model->btn_href = $data->btn_href ?? null;
-            $model->meta_description = $data->meta_description ?? null;
             $slug = \Str::slug($data->languages->en->name);
             $model->slug = $slug . '-' . $model->id;
 
@@ -68,7 +67,7 @@ class IndustriesController extends CrudController
 
             if (property_exists($data, 'languages')) {
                 $this->updateLanguages(
-                    ['name', 'short_description', 'long_description', 'btn_text'],
+                    ['name', 'short_description', 'long_description', 'btn_text', 'meta_description'],
                     json_decode(json_encode($data->languages), true),
                     $model->id,
                 );
