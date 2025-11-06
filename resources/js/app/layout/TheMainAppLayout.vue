@@ -46,9 +46,15 @@ const items = ref([
         }
     },
     {
-        label: 'solutions',
+        label: 'Solutions',
         route: {
-            name: 'solutions'
+            name: 'Solutions'
+        }
+    },
+    {
+        label: 'Industries',
+        route: {
+            name: 'Industries'
         }
     },
     {

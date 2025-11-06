@@ -1,7 +1,7 @@
 <template>
     <BasePageContent>
-        <BaseCrudTable :edit-dialog="TheSolutionDialog"
-                       endpoint="api/solutions"
+        <BaseCrudTable :edit-dialog="TheIndustryDialog"
+                       endpoint="api/industries"
                        ref="crudTable">
             <template #columns>
                 <Column field="id" header="ID" :sortable="true"></Column>
@@ -42,7 +42,7 @@ import BasePageContent from "kockatoos-admin-ui/components/BasePageContent.vue";
 import useCrudTable from "kockatoos-admin-ui/composables/useCrudTable.js";
 import useAlerts from "kockatoos-admin-ui/composables/useAlerts.js";
 import {ref} from "vue";
-import TheSolutionDialog from "@/js/app/pages/solutions/dialogs/TheSolutionDialog.vue";
+import TheIndustryDialog from "@/js/app/pages/industries/dialogs/TheIndustryDialog.vue";
 
 
 const crudTable = ref();
@@ -58,7 +58,7 @@ const {
 async function handleToggleHidden(value, record) {
     startRowLoading(record);
     try {
-        await window.axios.put(`api/solutions/${record.id}/toggleHidden`);
+        await window.axios.put(`api/industries/${record.id}/toggleHidden`);
     } catch (e) {
         alertError('Error', 'Failed to update status');
     } finally {
