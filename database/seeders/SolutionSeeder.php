@@ -275,7 +275,7 @@ class SolutionSeeder extends Seeder
         ];
 
         foreach ($solutions as $solution) {
-            $blobId = self::createBlob('Blog', $solution['image_url'])->id;
+            $blobId = self::createBlob('Solution', $solution['image_url'])->id;
 
             // Insert into main table
             $solutionId = DB::table('solutions')->insertGetId([
