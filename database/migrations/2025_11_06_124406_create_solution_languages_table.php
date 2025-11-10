@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('long_description')->nullable();
             $table->string('btn_text')->nullable();
             $table->text('meta_description')->nullable();
+            $table->string('promotion_text')->nullable();
             $table->timestamps();
         });
     }

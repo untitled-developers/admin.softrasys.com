@@ -37,7 +37,9 @@ class AccessoriesController extends CrudController
         'accessory_languages.long_description',
         'accessory_languages.btn_text',
         'accessory_languages.meta_description',
+        'accessory_languages.promotion_text',
         'blobs.url as blob_url',
+        'promotion_blobs.url as promotion_blob_url',
     ];
 
     public function __construct()
@@ -63,6 +65,10 @@ class AccessoriesController extends CrudController
             $model->btn_href = $data->btn_href ?? null;
             $slug = Str::slug($data->languages->en->name);
             $model->slug = $slug . '-' . $model->id;
+
+            if ($request->file('promotion_image') != null)
+                $this->updateBlob($request, $model, 'promotion_blob_id', 'promotion_image');
+
 
             $model->save();
 
@@ -90,6 +96,7 @@ class AccessoriesController extends CrudController
             ->leftJoin('accessory_languages', 'accessory_languages.accessory_id', '=', 'accessories.id')
             ->leftJoin('languages', 'accessory_languages.language_id', '=', 'languages.id')
             ->leftJoin('blobs', 'accessories.blob_id', '=', 'blobs.id')
+            ->leftJoin('blobs as promotion_blobs', 'accessories.promotion_blob_id', '=', 'promotion_blobs.id')
             ->where('accessory_languages.language_id', '=', 1);
     }
 

@@ -21,6 +21,11 @@ return new class extends Migration
             $table->unsignedInteger('sort_number')->default(0);
             $table->string('slug')->unique();
             $table->string('btn_href')->nullable();
+            $table->foreignId('promotion_blob_id')
+                ->nullable()
+                ->constrained('blobs')
+                ->nullOnDelete();
+            $table->string('promotion_text')->nullable();
             $table->timestamps();
         });
     }
