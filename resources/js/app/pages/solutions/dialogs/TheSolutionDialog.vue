@@ -32,6 +32,21 @@
                             />
                         </BaseInputContainer>
                     </div>
+                    <div class="cursor-pointer">
+                        <BaseInputContainer
+                            label="Promotion Image*"
+                            :errors="getErrors('promotion_image')"
+                            :show-errors="didSubmit">
+                            <div class="text-sm  mb-2 text-red-500">
+                                Max Size: 2MB
+                            </div>
+                            <BaseSingleImageUploader
+                                :image="record?.promotion_blob_url"
+                                @change="handlePromotionImageChange"
+                            />
+                        </BaseInputContainer>
+                    </div>
+
                 </div>
 
                 <div class="grid grid-cols-12 gap-y-4 gap-x-2">
@@ -60,6 +75,8 @@
                                             `languages.${lang.code}.name`,
                                             `languages.${lang.code}.btn_text`,
                                             `languages.${lang.code}.short_description`,
+                                            `languages.${lang.code}.promotion_text`,
+
                                             `languages.${lang.code}.long_description`,
                                             ]"
                                             :label="lang.name">
@@ -85,6 +102,12 @@
                                         <BaseInputContainer
                                             label="Meta Description">
                                             <Textarea maxlength="120" v-model="form.languages[lang.code].meta_description"/>
+                                        </BaseInputContainer>
+                                        <BaseInputContainer
+                                            :show-errors="didSubmit"
+                                            label="promotion Text"
+                                            :errors="getErrors(`languages.${lang.code}.promotion_text`)">
+                                            <InputText maxlength="60" v-model="form.languages[lang.code].promotion_text"/>
                                         </BaseInputContainer>
                                         <BaseInputContainer
                                             label="Short Description">
@@ -149,6 +172,7 @@ const form = ref({
     sort_number: 0,
     btn_href: '',
     image: null,
+    promotion_image: null,
     languages: {}
 
 })
@@ -162,22 +186,32 @@ const formSchema = createFormSchema(zod.object({
         languageSchema: zod.object({
             name: zod.string().nonempty('Name is required'),
             short_description: zod.string().nonempty('Short description is required'),
-            long_description: zod.string().nonempty('Description is required')
+            long_description: zod.string().nonempty('Description is required'),
+            promotion_text: zod.string().nonempty('Promotion text is required')
+
         }),
         image: props.record ? zod.any() : zod.object({}, {message: 'Image is required'}),
+        promotion_image: props.record ? zod.any() : zod.object({}, {message: 'Promotion Image is required'}),
+
 
     })
 
 function handleImageChange(image) {
     form.value.image = image
 }
+function handlePromotionImageChange(image) {
+    form.value.promotion_image = image
+
+}
 function requestBodyMapper(data) {
     let newData = {...data}
     delete newData.image
+    delete newData.promotion_image
 
     return {
         data: newData,
         image: form.value.image,
+        promotion_image: form.value.promotion_image,
 
     }
 }
@@ -204,7 +238,9 @@ async function recordMapper(data) {
                         name: '',
                         short_description: '',
                         long_description: '',
-                        meta_description: ''
+                        meta_description: '',
+                        promotion_text: ''
+
                     }
                 }
             })
@@ -226,7 +262,9 @@ onBeforeMount(() => {
             name: '',
             short_description: '',
             long_description: '',
-            meta_description: ''
+            meta_description: '',
+            promotion_text: ''
+
         }
     })
 })

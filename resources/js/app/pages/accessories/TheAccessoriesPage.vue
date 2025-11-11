@@ -5,6 +5,24 @@
                        ref="crudTable">
             <template #columns>
                 <Column field="id" header="ID" :sortable="true"></Column>
+                <Column field="blob_url" header="Image">
+                    <template #body="{data}">
+                        <div class="flex items-center">
+                            <div class="shrink-0 mr-2">
+                                <BaseImageDisplay :url="data.blob_url" class="size-16"/>
+                            </div>
+                        </div>
+                    </template>
+                </Column>
+                <Column field="promotion_blob_url" header="Promotion Image">
+                    <template #body="{data}">
+                        <div class="flex items-center">
+                            <div class="shrink-0 mr-2">
+                                <BaseImageDisplay :url="data.promotion_blob_url" class="size-16"/>
+                            </div>
+                        </div>
+                    </template>
+                </Column>
                 <Column field="name" header="Name" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
                 <Column field="is_hidden" header="Status" :sortable="true">
@@ -35,6 +53,7 @@
 </template>
 
 <script setup>
+import BaseImageDisplay from "kockatoos-admin-ui/components/BaseImageDisplay.vue"
 import Column from "primevue/column";
 import BaseTableToggleSelect from "kockatoos-admin-ui/components/BaseTableToggleSelect.vue";
 import BaseCrudTable from "kockatoos-admin-ui/components/BaseCrudTable.vue";

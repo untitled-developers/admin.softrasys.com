@@ -4,6 +4,24 @@
                        endpoint="api/solutions"
                        ref="crudTable">
             <template #columns>
+                <Column field="blob_url" header="Image">
+                    <template #body="{data}">
+                        <div class="flex items-center">
+                            <div class="shrink-0 mr-2">
+                                <BaseImageDisplay :url="data.blob_url" class="size-16"/>
+                            </div>
+                        </div>
+                    </template>
+                </Column>
+                <Column field="promotion_blob_url" header="Promotion Image">
+                    <template #body="{data}">
+                        <div class="flex items-center">
+                            <div class="shrink-0 mr-2">
+                                <BaseImageDisplay :url="data.promotion_blob_url" class="size-16"/>
+                            </div>
+                        </div>
+                    </template>
+                </Column>
                 <Column field="id" header="ID" :sortable="true"></Column>
                 <Column field="name" header="Name" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
@@ -43,6 +61,7 @@ import useCrudTable from "kockatoos-admin-ui/composables/useCrudTable.js";
 import useAlerts from "kockatoos-admin-ui/composables/useAlerts.js";
 import {ref} from "vue";
 import TheSolutionDialog from "@/js/app/pages/solutions/dialogs/TheSolutionDialog.vue";
+import BaseImageDisplay from "kockatoos-admin-ui/components/BaseImageDisplay.vue";
 
 
 const crudTable = ref();

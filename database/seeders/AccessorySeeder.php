@@ -33,6 +33,8 @@ class AccessorySeeder extends Seeder
                 'meta_description' => 'Get real-time GPS tracking and detailed route history for complete fleet visibility and control.',
                 'sort_number' => 1,
                 'image_url' => '/assets/accessories/img_1.png',
+                'promotion_text' => 'Real-time fleet tracking with full visibility & control',
+                'promotion_image_url' => '/assets/accessories/img_1.png'
 
             ],
             [
@@ -55,6 +57,8 @@ class AccessorySeeder extends Seeder
                 'meta_description' => 'Monitor fleet performance with Fuel, Temperature, OBD, and Seat sensors. Gain real-time insights, prevent losses, ensure safety, cut costs, and boost efficiency.',
                 'sort_number' => 2,
                 'image_url' => '/assets/accessories/img_2.png',
+                'promotion_text' => 'Smart sensors for precise, safe & real-time fleet monitoring',
+                'promotion_image_url' => '/assets/accessories/img_2.png'
 
             ],
             [
@@ -77,6 +81,8 @@ class AccessorySeeder extends Seeder
                 'meta_description' => 'Protect your fleet with RFID/iButton access, panic alerts, door sensors, and remote immobilizers with geofencing.',
                 'sort_number' => 3,
                 'image_url' => '/assets/accessories/img_2.png',
+                'promotion_text' => 'Advanced fleet security for real-time safety & control',
+                'promotion_image_url' => '/assets/accessories/img_2.png'
 
             ],
 
@@ -84,6 +90,7 @@ class AccessorySeeder extends Seeder
 
         foreach ($accessories as $accessory) {
             $blobId = self::createBlob('Accessory', $accessory['image_url'])->id;
+            $PromotionBlobId = self::createBlob('Accessory', $accessory['promotion_image_url'])->id;
 
             // Insert into main table
             $accessoryId = DB::table('accessories')->insertGetId([
@@ -92,6 +99,7 @@ class AccessorySeeder extends Seeder
                 'is_hidden'   => 0,
                 'sort_number' => $accessory['sort_number'],
                 'blob_id' => $blobId,
+                'promotion_blob_id' => $PromotionBlobId,
                 'created_at'  => now(),
                 'updated_at'  => now(),
             ]);
