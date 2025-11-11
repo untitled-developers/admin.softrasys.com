@@ -25,7 +25,6 @@ return new class extends Migration
                 ->nullable()
                 ->constrained('blobs')
                 ->nullOnDelete();
-            $table->string('promotion_text')->nullable();
             $table->timestamps();
         });
     }
