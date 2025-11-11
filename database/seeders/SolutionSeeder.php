@@ -311,6 +311,7 @@ class SolutionSeeder extends Seeder
                     'long_description' => $solution['long_description'],
                     'btn_text'         => $solution['btn_text'],
                     'meta_description' => $solution['meta_description'],
+                    'promotion_text' => $solution['promotion_text'],
                     'created_at'       => now(),
                     'updated_at'       => now(),
                 ]);
