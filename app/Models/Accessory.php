@@ -10,7 +10,7 @@ class Accessory extends BaseModel
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'accessory_languages', 'accessory_id', 'language_id')
-            ->withPivot(['name', 'short_description', 'long_description', 'btn_text', 'meta_description'])
+            ->withPivot(['name', 'short_description', 'long_description', 'btn_text', 'meta_description','promotion_text'])
             ->withTimestamps();
     }
 

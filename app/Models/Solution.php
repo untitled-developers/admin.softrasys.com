@@ -10,7 +10,7 @@ class Solution extends BaseModel
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'solution_languages', 'solution_id', 'language_id')
-            ->withPivot(['name', 'short_description', 'long_description', 'btn_text'])
+            ->withPivot(['name', 'short_description', 'long_description', 'btn_text','meta_description','promotion_text'])
             ->withTimestamps();
     }
 
