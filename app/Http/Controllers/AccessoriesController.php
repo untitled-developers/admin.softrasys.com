@@ -74,7 +74,7 @@ class AccessoriesController extends CrudController
 
             if (property_exists($data, 'languages')) {
                 $this->updateLanguages(
-                    ['name', 'short_description', 'long_description', 'btn_text', 'meta_description'],
+                    ['name', 'short_description', 'long_description', 'btn_text', 'meta_description', 'promotion_text'],
                     json_decode(json_encode($data->languages), true),
                     $model->id,
                 );
