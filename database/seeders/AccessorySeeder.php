@@ -34,7 +34,7 @@ class AccessorySeeder extends Seeder
                 'sort_number' => 1,
                 'image_url' => '/assets/accessories/img_1.png',
                 'promotion_text' => 'Real-time fleet tracking with full visibility & control',
-                'promotion_image_url' => '/assets/accessories/img_1.png'
+                'promotion_image_url' => '/assets/accessories/safety-sensors.webp'
 
             ],
             [
@@ -58,7 +58,7 @@ class AccessorySeeder extends Seeder
                 'sort_number' => 2,
                 'image_url' => '/assets/accessories/img_2.png',
                 'promotion_text' => 'Smart sensors for precise, safe & real-time fleet monitoring',
-                'promotion_image_url' => '/assets/accessories/img_2.png'
+                'promotion_image_url' => '/assets/accessories/monitoring-sensors.webp'
 
             ],
             [
@@ -82,7 +82,7 @@ class AccessorySeeder extends Seeder
                 'sort_number' => 3,
                 'image_url' => '/assets/accessories/img_2.png',
                 'promotion_text' => 'Advanced fleet security for real-time safety & control',
-                'promotion_image_url' => '/assets/accessories/img_2.png'
+                'promotion_image_url' => '/assets/accessories/tracking-devices.webp'
 
             ],
 
@@ -112,6 +112,7 @@ class AccessorySeeder extends Seeder
                     'name'             => $accessory['name'],
                     'short_description'=> $accessory['short_description'],
                     'long_description' => $accessory['long_description'],
+                    'promotion_text' => $accessory['promotion_text'],
                     'btn_text'         => $accessory['btn_text'],
                     'meta_description' => $accessory['meta_description'],
                     'created_at'       => now(),
