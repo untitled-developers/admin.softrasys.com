@@ -63,7 +63,7 @@ class SolutionSeeder extends Seeder
                 'meta_description' => 'Move beyond basic tracking with our sophisticated analytics engine that transforms raw data into valuable business insights. Our platform processes millions of data points to provide comprehensive reporting across all aspects of fleet operations.',
                 'sort_number' => 2,
                 'promotion_text' => 'Turn data into powerful fleet insights.',
-                'image_url' => '/assets/solutions/img.png',
+                'image_url' => '/assets/solutions/analytics.jpg',
                 'promotion_image_url' => '/assets/solutions/fleet-management.svg'
             ],
             [
@@ -128,7 +128,7 @@ class SolutionSeeder extends Seeder
                 'meta_description' => 'Transform your maintenance operations from reactive repairs to proactive management with our comprehensive maintenance module. Our system ensures every vehicle receives timely care, reducing downtime and extending asset lifespan.',
                 'sort_number' => 4,
                 'promotion_text' => 'Proactive vehicle maintenance made easy.',
-                'image_url' => '/assets/solutions/img_1.png',
+                'image_url' => '/assets/solutions/maintenance.webp',
                 'promotion_image_url' => '/assets/solutions/dispatch.svg'
             ],
             [
@@ -278,7 +278,7 @@ class SolutionSeeder extends Seeder
                 'sort_number' => 7,
                 'promotion_text' => 'AI video analytics for safer fleets.',
 
-                'image_url' => '/assets/solutions/img_5.png',
+                'image_url' => '/assets/solutions/monitoring.webp',
                 'promotion_image_url' => '/assets/solutions/api-services.svg'
 
             ],

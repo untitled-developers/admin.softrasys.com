@@ -12,7 +12,7 @@ class TestimonialSeeder extends Seeder
         $testimonials = [
             [
                 'name' => 'Africell',
-                'description' => 'I am writing to express my gratitude and satisfaction with your tracking system services. As a customer who heavily relies on GPS technology for our business, we have had experience with various tracking systems in the past. However, none have come close to the level of service and quality that SOFTRASYS S.A.L provides.',
+                'description' => '     Since 2015, SOFTRASYS has transformed our fleet. With real-time tracking, fuel monitoring, and smart maintenance, we gained 28% lower costs, 45% better safety, and full network visibility — a true boost in efficiency and ROI.',
                 'sort_number' => 1,
             ],
             [
@@ -22,7 +22,7 @@ class TestimonialSeeder extends Seeder
             ],
             [
                 'name' => 'Sabeh Beton',
-                'description' => 'We at Cimenterie Nationale are happy to share our experience using Softrasys as a tracking software company for over 10 years. During this time, Softrasys has consistently provided us with accurate and reliable data that has helped us make informed decisions for our transportation business.',
+                'description' => 'We at Cimenterie Nationale are happy to share our experience using Softrasys as a tracking software company for over 10 years. During this time, Softrasys has consistently.',
                 'sort_number' => 3,
             ],
         ];
