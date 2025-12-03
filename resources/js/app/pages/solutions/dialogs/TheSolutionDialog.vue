@@ -52,7 +52,7 @@
                 <div class="grid grid-cols-12 gap-y-4 gap-x-2">
                     <div class="col-span-12">
                         <BaseInputContainer
-                            label="btn Href">
+                            label="Button Href">
                             <InputText class="w-full" v-model="form.btn_href"/>
                         </BaseInputContainer>
                     </div>
@@ -95,7 +95,7 @@
                                         </BaseInputContainer>
                                         <BaseInputContainer
                                             :show-errors="didSubmit"
-                                            label="Btn Text"
+                                            label="Button Text"
                                             :errors="getErrors(`languages.${lang.code}.btn_text`)">
                                             <InputText maxlength="120" v-model="form.languages[lang.code].btn_text"/>
                                         </BaseInputContainer>
