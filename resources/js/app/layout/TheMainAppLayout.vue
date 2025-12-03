@@ -58,9 +58,9 @@ const items = ref([
         }
     },
     {
-        label: 'Accessory',
+        label: 'Accessories',
         route: {
-            name: 'Accessory'
+            name: 'Accessories'
         }
     },
     {

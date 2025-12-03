@@ -61,11 +61,11 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: '/accessory',
-                    name: 'Accessory',
+                    path: '/accessories',
+                    name: 'Accessories',
                     component: () => import('@/js/app/pages/accessories/TheAccessoriesPage.vue'),
                     meta: {
-                        title: 'Accessory'
+                        title: 'Accessories'
                     }
                 },
                 {

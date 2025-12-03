@@ -37,12 +37,6 @@
                 <div class="grid grid-cols-12 gap-y-4 gap-x-2">
                     <div class="col-span-12">
                         <BaseInputContainer
-                            label="btn Href">
-                            <InputText class="w-full" v-model="form.btn_href"/>
-                        </BaseInputContainer>
-                    </div>
-                    <div class="col-span-12">
-                        <BaseInputContainer
                             label="Sort Number">
                             <InputNumber class="w-full" v-model="form.sort_number"/>
                         </BaseInputContainer>
@@ -147,7 +141,6 @@ const languagesStore = useLanguagesStore()
 const {createFormSchema} = useCreateFormSchema({props})
 const form = ref({
     sort_number: 0,
-    btn_href: '',
     image: null,
     languages: {}
 
