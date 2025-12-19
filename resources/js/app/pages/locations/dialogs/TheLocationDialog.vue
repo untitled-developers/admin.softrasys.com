@@ -69,8 +69,8 @@
                     label="Map">
                     <BaseLocationInput
                         @change="handleLocationUpdate"
-                        :latitude="form.latitude"
-                        :longitude="form.longitude"
+                        :latitude="getLatitude()"
+                        :longitude="getLongitude()"
                         :api-key="mapAPIKey"
                         class="min-h-[250px]"
                     />
@@ -130,6 +130,13 @@ function handleLocationUpdate(location) {
     form.value.longitude = location.longitude
 }
 
+function getLongitude() {
+    return parseFloat(form.value.longitude)
+}
+
+function getLatitude() {
+    return parseFloat(form.value.latitude)
+}
 
 function requestBodyMapper(data) {
     let newData = {...data}
