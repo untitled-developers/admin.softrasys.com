@@ -71,6 +71,7 @@
                         @change="handleLocationUpdate"
                         :latitude="form.latitude"
                         :longitude="form.longitude"
+                        :api-key="mapAPIKey"
                         class="min-h-[250px]"
                     />
                 </BaseInputContainer>
@@ -99,7 +100,7 @@ const emit = defineEmits(['close', 'submit', 'next-record', 'previous-record'])
 const dialog = ref(null)
 const {} = useEditDialog(dialog)
 const {createFormSchema} = useCreateFormSchema({props})
-
+const mapAPIKey = ref('AIzaSyCncIBn6fIbklWaqhaNtVAMJnIUDivg1As')
 const form = ref({
     name: '',
     email: '',
