@@ -53,12 +53,7 @@
                     :show-errors="didSubmit">
                     <InputText v-model="form.address"/>
                 </BaseInputContainer>
-                <BaseInputContainer
-                    label="Location Link*"
-                    :errors="getErrors('location_link')"
-                    :show-errors="didSubmit">
-                    <InputText v-model="form.location_link"/>
-                </BaseInputContainer>
+
 
                 <BaseInputContainer
                     label="Sort Number"
@@ -108,7 +103,6 @@ const form = ref({
     fax_number: '',
     support_number: '',
     address: '',
-    location_link: '',
     sort_number: 0,
     image: null,
     latitude: null,
@@ -121,7 +115,6 @@ const formSchema = createFormSchema(zod.object({
         name: zod.string().nonempty('Title is required'),
         phone_number: zod.string().nonempty('Phone number is required'),
         address: zod.string().nonempty('Address is required'),
-        location_link: zod.string().url('Link must be a valid URL').nonempty('Link is required'),
 
     })
 )
