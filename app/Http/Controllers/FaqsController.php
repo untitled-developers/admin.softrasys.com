@@ -40,9 +40,6 @@ class FaqsController extends CrudController
             SearchableField::create('faqs.id', SearchTypes::$EXACT),
             SearchableField::create('faq_languages.question', SearchTypes::$CONTAINS),
             SearchableField::create('faq_languages.answer', SearchTypes::$CONTAINS),
-            SearchableField::create('faqs.sort_number', SearchTypes::$EXACT),
-            SearchableField::create('faqs.is_hidden', SearchTypes::$EXACT),
-            SearchableField::create('faqs.is_featured', SearchTypes::$EXACT),
         ];
     }
 

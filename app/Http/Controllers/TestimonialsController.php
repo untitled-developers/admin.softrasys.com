@@ -38,9 +38,6 @@ class TestimonialsController extends CrudController
         $this->searchFields = [
             SearchableField::create('testimonials.id', SearchTypes::$EXACT),
             SearchableField::create('testimonial_languages.name', SearchTypes::$CONTAINS),
-            SearchableField::create('testimonial_languages.description', SearchTypes::$CONTAINS),
-            SearchableField::create('testimonials.sort_number', SearchTypes::$EXACT),
-            SearchableField::create('testimonials.is_hidden', SearchTypes::$EXACT),
         ];
     }
 

@@ -47,9 +47,6 @@ class SolutionsController extends CrudController
         $this->searchFields = [
             SearchableField::create('solutions.id', SearchTypes::$EXACT),
             SearchableField::create('solution_languages.name', SearchTypes::$CONTAINS),
-            SearchableField::create('solution_languages.short_description', SearchTypes::$CONTAINS),
-            SearchableField::create('solutions.slug', SearchTypes::$CONTAINS),
-            SearchableField::create('solutions.is_hidden', SearchTypes::$EXACT),
         ];
     }
 

@@ -45,9 +45,6 @@ class IndustriesController extends CrudController
         $this->searchFields = [
             SearchableField::create('industries.id', SearchTypes::$EXACT),
             SearchableField::create('industry_languages.name', SearchTypes::$CONTAINS),
-            SearchableField::create('industry_languages.short_description', SearchTypes::$CONTAINS),
-            SearchableField::create('industries.slug', SearchTypes::$CONTAINS),
-            SearchableField::create('industries.is_hidden', SearchTypes::$EXACT),
         ];
     }
 

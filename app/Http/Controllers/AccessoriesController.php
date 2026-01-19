@@ -47,9 +47,6 @@ class AccessoriesController extends CrudController
         $this->searchFields = [
             SearchableField::create('accessories.id', SearchTypes::$EXACT),
             SearchableField::create('accessory_languages.name', SearchTypes::$CONTAINS),
-            SearchableField::create('accessory_languages.short_description', SearchTypes::$CONTAINS),
-            SearchableField::create('accessories.slug', SearchTypes::$CONTAINS),
-            SearchableField::create('accessories.is_hidden', SearchTypes::$EXACT),
         ];
     }
 

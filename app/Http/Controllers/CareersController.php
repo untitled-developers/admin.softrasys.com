@@ -40,10 +40,8 @@ class CareersController extends CrudController
     {
         $this->searchFields = [
             SearchableField::create('careers.id', SearchTypes::$EXACT),
-            SearchableField::create('career_languages.job_title', SearchTypes::$CONTAINS),        // Changed from 'title'
-            SearchableField::create('career_languages.short_description', SearchTypes::$CONTAINS),
+            SearchableField::create('career_languages.job_title', SearchTypes::$CONTAINS),
             SearchableField::create('careers.type', SearchTypes::$EXACT),
-            SearchableField::create('careers.is_hidden', SearchTypes::$EXACT),
         ];
     }
 
