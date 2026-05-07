@@ -45,6 +45,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: '/solution_categories',
+                    name: 'Solution Categories',
+                    component: () => import('@/js/app/pages/solutionCategories/TheSolutionCategoriesPage.vue'),
+                    meta: {
+                        title: 'Solution Categories'
+                    }
+                },
+                {
                     path: '/solutions',
                     name: 'Solutions',
                     component: () => import('@/js/app/pages/solutions/TheSolutionsPage.vue'),

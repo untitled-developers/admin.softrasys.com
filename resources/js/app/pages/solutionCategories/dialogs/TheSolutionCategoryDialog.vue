@@ -1,9 +1,9 @@
 <template>
     <BaseEditDialog
-        form-id="solution-form"
+        form-id="solution-category-form"
         :record="record"
-        record-type="Solution"
-        endpoint="api/solutions"
+        record-type="Solution Category"
+        endpoint="api/solution_categories"
         :request-body-mapper="requestBodyMapper"
         :record-mapper="recordMapper"
         v-model:form="form"
@@ -16,7 +16,7 @@
         width="800px"
     >
         <template #content="{getErrors, handleSubmit, didSubmit}">
-            <form id="solution-form" @submit.prevent="handleSubmit" class="flex flex-col gap-y-4">
+            <form id="solution-category-form" @submit.prevent="handleSubmit" class="flex flex-col gap-y-4">
                 <div class="flex justify-center gap-x-4">
                     <div class="cursor-pointer">
                         <BaseInputContainer
@@ -32,21 +32,6 @@
                             />
                         </BaseInputContainer>
                     </div>
-                    <div class="cursor-pointer">
-                        <BaseInputContainer
-                            label="Promotion Image*"
-                            :errors="getErrors('promotion_image')"
-                            :show-errors="didSubmit">
-                            <div class="text-sm  mb-2 text-red-500">
-                                Max Size: 2MB
-                            </div>
-                            <BaseSingleImageUploader
-                                :image="record?.promotion_blob_url"
-                                @change="handlePromotionImageChange"
-                            />
-                        </BaseInputContainer>
-                    </div>
-
                 </div>
 
                 <div class="grid grid-cols-12 gap-y-4 gap-x-2">
@@ -54,21 +39,6 @@
                         <BaseInputContainer
                             label="Sort Number">
                             <InputNumber class="w-full" v-model="form.sort_number"/>
-                        </BaseInputContainer>
-                    </div>
-                    <!-- Category -->
-                    <div class="col-span-12">
-                        <BaseInputContainer label="Category" :show-errors="didSubmit"
-                                            :errors="getErrors('category_id')">
-                            <Select
-                                v-model="form.solution_category_id"
-                                :options="solution_categories"
-                                optionLabel="name"
-                                option-value="id"
-                                showClear
-                                placeholder="Select a Category"
-                            >
-                            </Select>
                         </BaseInputContainer>
                     </div>
 
@@ -82,11 +52,7 @@
                                             :show-errors="didSubmit"
                                             :fields="[
                                             `languages.${lang.code}.name`,
-                                            `languages.${lang.code}.btn_text`,
                                             `languages.${lang.code}.short_description`,
-                                            `languages.${lang.code}.promotion_text`,
-
-                                            `languages.${lang.code}.long_description`,
                                             ]"
                                             :label="lang.name">
                                         </BaseDialogTabLabel>
@@ -102,22 +68,7 @@
                                             :errors="getErrors(`languages.${lang.code}.name`)">
                                             <InputText maxlength="120" v-model="form.languages[lang.code].name"/>
                                         </BaseInputContainer>
-                                        <BaseInputContainer
-                                            :show-errors="didSubmit"
-                                            label="Button Text"
-                                            :errors="getErrors(`languages.${lang.code}.btn_text`)">
-                                            <InputText maxlength="120" v-model="form.languages[lang.code].btn_text"/>
-                                        </BaseInputContainer>
-                                        <BaseInputContainer
-                                            label="Meta Description">
-                                            <Textarea maxlength="120" v-model="form.languages[lang.code].meta_description"/>
-                                        </BaseInputContainer>
-                                        <BaseInputContainer
-                                            :show-errors="didSubmit"
-                                            label="promotion Text"
-                                            :errors="getErrors(`languages.${lang.code}.promotion_text`)">
-                                            <InputText maxlength="60" v-model="form.languages[lang.code].promotion_text"/>
-                                        </BaseInputContainer>
+
                                         <BaseInputContainer
                                             label="Short Description">
                                             <BaseRichEditor
@@ -127,14 +78,6 @@
                                                 ref="editor"/>
                                         </BaseInputContainer>
 
-                                        <BaseInputContainer
-                                            label="Description">
-                                            <BaseRichEditor
-                                                place-holder="Enter Description"
-                                                v-model="form.languages[lang.code].long_description"
-                                                :language="lang.code"
-                                                ref="editor"/>
-                                        </BaseInputContainer>
                                     </div>
                                 </TabPanel>
                             </TabPanels>
@@ -150,7 +93,6 @@
 </template>
 
 <script setup>
-import Select from "primevue/select";
 import Tabs from "primevue/tabs";
 import TabList from "primevue/tablist";
 import Tab from "primevue/tab";
@@ -168,13 +110,11 @@ import useEditDialog from "kockatoos-admin-ui/composables/useEditDialog.js";
 import BaseRichEditor from "kockatoos-admin-ui/components/BaseRichEditor.vue";
 import {useLanguagesStore} from "kockatoos-admin-ui/stores/LanguagesStore.js";
 import BaseSingleImageUploader from "kockatoos-admin-ui/components/BaseSingleImageUploader.vue";
-import Textarea from "primevue/textarea";
+
+
 const props = defineProps({
     record: Object,
-    solution_categories: {
-        type: Array,
-        default: () => []
-    },
+
 })
 const emit = defineEmits(['close', 'submit', 'next-record', 'previous-record'])
 const dialog = ref(null)
@@ -183,21 +123,13 @@ const languagesStore = useLanguagesStore()
 const {createFormSchema} = useCreateFormSchema({props})
 const form = ref({
     sort_number: 0,
-    solution_category_id: null,
     image: null,
-    promotion_image: null,
     languages: {}
 
 })
 
 
 const formSchema = createFormSchema(zod.object({
-        solution_category_id: zod.number(
-            {
-                invalid_type_error: 'Solution Category is required',
-                required_error: 'Solution Category is required'
-            }
-        )
     }),
     {
         languages: languagesStore.languages.map(lang => lang.code),
@@ -205,32 +137,22 @@ const formSchema = createFormSchema(zod.object({
         languageSchema: zod.object({
             name: zod.string().nonempty('Name is required'),
             short_description: zod.string().nonempty('Short description is required'),
-            long_description: zod.string().nonempty('Description is required'),
-            promotion_text: zod.string().nonempty('Promotion text is required')
-
         }),
         image: props.record ? zod.any() : zod.object({}, {message: 'Image is required'}),
-        promotion_image: props.record ? zod.any() : zod.object({}, {message: 'Promotion Image is required'}),
-
 
     })
 
 function handleImageChange(image) {
     form.value.image = image
 }
-function handlePromotionImageChange(image) {
-    form.value.promotion_image = image
 
-}
 function requestBodyMapper(data) {
     let newData = {...data}
     delete newData.image
-    delete newData.promotion_image
 
     return {
         data: newData,
         image: form.value.image,
-        promotion_image: form.value.promotion_image,
 
     }
 }
@@ -242,11 +164,11 @@ async function recordMapper(data) {
     try {
         startDialogLoading({
             blockUI: true,
-            message: 'Fetching Solutions information...'
+            message: 'Fetching Solution Categories information...'
         })
 
         if (props.record?.id) {
-            const response = await window.axios.get(`api/solutions/${props.record.id}`)
+            const response = await window.axios.get(`api/solution_categories/${props.record.id}`)
             newData = response.data
 
             // Ensure all languages exist in the languages object
@@ -256,9 +178,6 @@ async function recordMapper(data) {
                         language_id: lang.id,
                         name: '',
                         short_description: '',
-                        long_description: '',
-                        meta_description: '',
-                        promotion_text: ''
 
                     }
                 }
@@ -280,9 +199,6 @@ onBeforeMount(() => {
             language_id: lang.id,
             name: '',
             short_description: '',
-            long_description: '',
-            meta_description: '',
-            promotion_text: ''
 
         }
     })

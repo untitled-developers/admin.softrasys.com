@@ -46,6 +46,12 @@ const items = ref([
         }
     },
     {
+        label: 'Solution Categories',
+        route: {
+            name: 'Solution Categories'
+        }
+    },
+    {
         label: 'Solutions',
         route: {
             name: 'Solutions'

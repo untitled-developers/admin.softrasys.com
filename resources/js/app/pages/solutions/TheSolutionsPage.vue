@@ -2,7 +2,10 @@
     <BasePageContent>
         <BaseCrudTable :edit-dialog="TheSolutionDialog"
                        endpoint="api/solutions"
-                       ref="crudTable">
+                       ref="crudTable"
+                       :edit-dialog-props="{
+                solution_categories: solution_categories,
+            }">
             <template #columns>
                 <Column field="blob_url" header="Image">
                     <template #body="{data}">
@@ -59,9 +62,9 @@ import BaseCrudTable from "kockatoos-admin-ui/components/BaseCrudTable.vue";
 import BasePageContent from "kockatoos-admin-ui/components/BasePageContent.vue";
 import useCrudTable from "kockatoos-admin-ui/composables/useCrudTable.js";
 import useAlerts from "kockatoos-admin-ui/composables/useAlerts.js";
-import {ref} from "vue";
 import TheSolutionDialog from "@/js/app/pages/solutions/dialogs/TheSolutionDialog.vue";
 import BaseImageDisplay from "kockatoos-admin-ui/components/BaseImageDisplay.vue";
+import {ref, onMounted} from "vue";
 
 
 const crudTable = ref();
@@ -71,6 +74,8 @@ const {
     stopRowLoading,
     startRowLoading
 } = useCrudTable(crudTable);
+const solution_categories = ref([])
+const didLoadFormData = ref(false);
 
 
 
@@ -84,7 +89,19 @@ async function handleToggleHidden(value, record) {
         stopRowLoading(record);
     }
 }
-
+async function getFormData() {
+    try {
+        const response = await window.axios.get('api/solutions/formData');
+        solution_categories.value = response.data.solution_categories;
+        didLoadFormData.value = true;
+    } catch (e) {
+        console.error(e);
+        alertError('Error', 'Failed to get form data');
+    }
+}
+onMounted(() => {
+    getFormData();
+});
 </script>
 
 <style scoped>
