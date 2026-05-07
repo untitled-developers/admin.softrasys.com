@@ -8,6 +8,7 @@ use App\Http\Controllers\IndustriesController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\LocationsController;
 use App\Http\Controllers\ResellersController;
+use App\Http\Controllers\SolutionCategoriesController;
 use App\Http\Controllers\SolutionsController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\CareersController;
@@ -19,6 +20,13 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         RoutesController::createResourcesRoutes(TestimonialsController::class);
         Route::put('/{id}/toggleHidden', [TestimonialsController::class,'toggleHidden']);
         Route::get('/{testimonial}', [TestimonialsController::class, 'getRecord']);
+    });
+    Route::prefix('solution-categories')->group(function () {
+        RoutesController::createResourcesRoutes(SolutionCategoriesController::class);
+        Route::put('/{id}/toggleHidden', [SolutionCategoriesController::class,'toggleHidden']);
+        Route::put('/{id}/toggleFeatured', [SolutionCategoriesController::class,'toggleFeatured']);
+        Route::put('/{id}/toggleHeaderMenu', [SolutionCategoriesController::class,'toggleHeaderMenu']);
+        Route::get('/{solutionCategory}', [SolutionCategoriesController::class, 'getRecord']);
     });
     Route::prefix('contactForms')->group(function (){
         RoutesController::createResourcesRoutes(ContactFormsController::class);
@@ -49,6 +57,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('solutions')->group(function () {
         RoutesController::createResourcesRoutes(SolutionsController::class);
+        Route::get('/formData', [SolutionsController::class, 'getFormData']);
         Route::get('/{solution}', [SolutionsController::class, 'getRecord']);
         Route::put('/{id}/toggleHidden', [SolutionsController::class,'toggleHidden']);
     });

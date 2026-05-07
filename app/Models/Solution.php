@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 
 class Solution extends BaseModel
@@ -17,5 +18,10 @@ class Solution extends BaseModel
     public function blob()
     {
         return $this->belongsTo(Blob::class, 'blob_id');
+    }
+
+    public function solutionCategory(): BelongsTo
+    {
+        return $this->belongsTo(SolutionCategory::class, 'solution_category_id');
     }
 }

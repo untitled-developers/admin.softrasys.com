@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SolutionCategory;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\Solution;
@@ -32,6 +33,8 @@ class SolutionsController extends CrudController
         'solutions.btn_href',
         'solutions.created_at',
         'solutions.updated_at',
+        'solution_category_languages.name as category_name',
+        'solution_categories.slug as category_slug',
         'solution_languages.meta_description',
         'solution_languages.name',
         'solution_languages.short_description',
@@ -62,6 +65,7 @@ class SolutionsController extends CrudController
             $model->slug = Str::slug($data->languages->en->name);
             $model->slug = $model->slug . "-" . $model->id;
             $model->btn_href = $data->btn_href ?? null;
+            $model->solution_category_id = $data->solution_category_id ?? null;
 
             if ($request->file('promotion_image') != null)
                 $this->updateBlob($request, $model, 'promotion_blob_id', 'promotion_image');
@@ -93,12 +97,19 @@ class SolutionsController extends CrudController
             ->leftJoin('languages', 'solution_languages.language_id', '=', 'languages.id')
             ->leftJoin('blobs', 'solutions.blob_id', '=', 'blobs.id')
             ->leftJoin('blobs as promotion_blobs', 'solutions.promotion_blob_id', '=', 'promotion_blobs.id')
+            ->leftJoin('solution_categories', 'solutions.solution_category_id', '=', 'solution_categories.id')
+            ->leftJoin('solution_category_languages', function($join) {
+                $join->on('solution_category_languages.solution_category_id', '=', 'solution_categories.id')
+                    ->where('solution_category_languages.language_id', '=', 1);
+            })
             ->where('solution_languages.language_id', '=', 1);
     }
 
     public function getRecord(Solution $solution)
     {
         $languages = $solution->languages->toArray();
+        $solution->load('solutionCategory');
+
         $solution = $solution->toArray();
 
         $solution['languages'] = [];
@@ -107,6 +118,24 @@ class SolutionsController extends CrudController
         }
 
         return response()->json($solution);
+    }
+
+    public function getFormData()
+    {
+        $solutionCategories = SolutionCategory::query()
+            ->join('solution_category_languages', 'solution_category_languages.solution_category_id', '=', 'solution_categories.id')
+            ->where('solution_category_languages.language_id', 1)
+            ->where('solution_categories.is_hidden', false)
+            ->orderBy('solution_categories.sort_number')
+            ->select([
+                'solution_categories.id as id',
+                'solution_category_languages.name as name'
+            ])
+            ->get();
+
+        return response()->json([
+            'solution_categories' => $solutionCategories,
+        ]);
     }
 
     public function toggleHidden($id)
