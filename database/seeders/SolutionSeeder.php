@@ -34,6 +34,7 @@ class SolutionSeeder extends Seeder
                 'btn_href' => '/solutions/vehicle-tracking',
                 'meta_description' => 'Our centralized tracking platform represents the cornerstone of modern fleet management, providing a single pane of glass for all your transportation assets. This sophisticated system integrates seamlessly with various vehicle types and tracking devices, offering real-time location data updated every 30 seconds.',
                 'sort_number' => 1,
+                'category_slug' => 'tracking-analytics',
                 'promotion_text' => 'Accurate GPS tracking & fleet optimization.',
                 'image_url' => '/assets/solutions/img.png',
                 'promotion_image_url' => '/assets/solutions/vehicle-tracking.svg'
@@ -62,6 +63,7 @@ class SolutionSeeder extends Seeder
                 'btn_href' => '/solutions/analytics-statistics',
                 'meta_description' => 'Move beyond basic tracking with our sophisticated analytics engine that transforms raw data into valuable business insights. Our platform processes millions of data points to provide comprehensive reporting across all aspects of fleet operations.',
                 'sort_number' => 2,
+                'category_slug' => 'tracking-analytics',
                 'promotion_text' => 'Turn data into powerful fleet insights.',
                 'image_url' => '/assets/solutions/analytics.jpg',
                 'promotion_image_url' => '/assets/solutions/fleet-management.svg'
@@ -94,6 +96,7 @@ class SolutionSeeder extends Seeder
                 'btn_href' => '/solutions/fleet-management',
                 'meta_description' => 'Our fleet management solution provides complete command over your transportation operations, combining powerful tools with intuitive interfaces to streamline every aspect of fleet management.',
                 'sort_number' => 3,
+                'category_slug' => 'fleet-operations',
                 'promotion_text' => 'Total control over fleet operations.',
                 'image_url' => '/assets/solutions/img_1.png',
                 'promotion_image_url' => '/assets/solutions/fleet-management.svg'
@@ -127,6 +130,7 @@ class SolutionSeeder extends Seeder
                 'btn_href' => '/solutions/maintenance-management',
                 'meta_description' => 'Transform your maintenance operations from reactive repairs to proactive management with our comprehensive maintenance module. Our system ensures every vehicle receives timely care, reducing downtime and extending asset lifespan.',
                 'sort_number' => 4,
+                'category_slug' => 'maintenance-safety',
                 'promotion_text' => 'Proactive vehicle maintenance made easy.',
                 'image_url' => '/assets/solutions/maintenance.webp',
                 'promotion_image_url' => '/assets/solutions/dispatch.svg'
@@ -159,6 +163,7 @@ class SolutionSeeder extends Seeder
                 'btn_href' => '/solutions/vehicle-booking-system',
                 'meta_description' => 'Eliminate scheduling conflicts and maximize vehicle utilization with our smart booking platform. This system provides complete visibility into vehicle availability while ensuring fair and efficient allocation across your organization.',
                 'sort_number' => 5,
+                'category_slug' => 'fleet-operations',
                 'promotion_text' => 'Smart booking for max vehicle use.',
                 'image_url' => '/assets/solutions/img_4.png',
                 'promotion_image_url' => '/assets/solutions/booking.svg'
@@ -191,6 +196,7 @@ class SolutionSeeder extends Seeder
                 'btn_href' => '/solutions/dispatch-system',
                 'meta_description' => 'Revolutionize your dispatch operations with our real-time management platform that connects fleet managers and drivers through seamless communication and task coordination.',
                 'sort_number' => 6,
+                'category_slug' => 'fleet-operations',
                 'promotion_text' => 'Real-time dispatch & team coordination.',
                 'image_url' => '/assets/solutions/img_2.jpg',
                 'promotion_image_url' => '/assets/solutions/dispatch.svg'
@@ -234,7 +240,8 @@ class SolutionSeeder extends Seeder
                 'btn_text' => 'Explore Integration Possibilities',
                 'btn_href' => '/solutions/api-services',
                 'meta_description' => 'Extend the power of our platform through our robust API services that enable seamless integration with your existing business systems and workflows.',
-                'sort_number' => 6,
+                'sort_number' => 7,
+                'category_slug' => 'integration',
                 'promotion_text' => 'Seamless API integration for your systems.',
                 'image_url' => '/assets/solutions/img_5.png',
                 'promotion_image_url' => '/assets/solutions/api-services.svg'
@@ -275,22 +282,22 @@ class SolutionSeeder extends Seeder
                 'btn_text' => 'Enhance Your Fleet Safety',
                 'btn_href' => '/solutions/fleet-surveillance-solution',
                 'meta_description' => 'Our advanced surveillance solution combines video monitoring, telematics, and behavioral analytics to provide unprecedented visibility into vehicle operations and driver behavior.',
-                'sort_number' => 7,
+                'sort_number' => 8,
+                'category_slug' => 'maintenance-safety',
                 'promotion_text' => 'AI video analytics for safer fleets.',
-
                 'image_url' => '/assets/solutions/monitoring.webp',
                 'promotion_image_url' => '/assets/solutions/api-services.svg'
-
             ],
         ];
+
+        $categoryIds = DB::table('solution_categories')->pluck('id', 'slug');
 
         foreach ($solutions as $solution) {
             $blobId = self::createBlob('Solution', $solution['image_url'])->id;
             $promotionBlobId = self::createBlob('Solution', $solution['promotion_image_url'])->id;
 
-
-            // Insert into main table
             $solutionId = DB::table('solutions')->insertGetId([
+                'solution_category_id' => $categoryIds[$solution['category_slug']] ?? null,
                 'slug'        => Str::slug($solution['name']),
                 'btn_href'    => $solution['btn_href'],
                 'is_hidden'   => 0,

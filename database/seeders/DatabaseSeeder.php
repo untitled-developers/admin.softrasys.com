@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             TestimonialSeeder::class,
             FaqSeeder::class,
+            SolutionCategorySeeder::class,
             SolutionSeeder::class,
             AccessorySeeder::class,
             IndustrySeeder::class,
