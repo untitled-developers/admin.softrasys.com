@@ -27,6 +27,7 @@
                 </Column>
                 <Column field="id" header="ID" :sortable="true"></Column>
                 <Column field="name" header="Name" :sortable="true"></Column>
+                <Column field="category_name" header="Category" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
                 <Column field="is_hidden" header="Status" :sortable="true">
                     <template #body="{data}">
