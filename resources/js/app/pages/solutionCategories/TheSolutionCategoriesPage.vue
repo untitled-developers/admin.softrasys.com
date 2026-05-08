@@ -16,28 +16,6 @@
                 <Column field="id" header="ID" :sortable="true"></Column>
                 <Column field="name" header="Name" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
-                <Column field="is_featured" header="Featured" :sortable="true">
-                    <template #body="{data}">
-                        <BaseTableToggleSelect
-                            @change="handleToggleFeatured($event, data)"
-                            :options="[
-                                {
-                                    label: 'Featured',
-                                    value: 1
-                                },
-                                {
-                                    label: 'Not Featured',
-                                    value: 0
-                                }
-                            ]"
-                            :value="data.is_featured ? 1 : 0"
-                            :color-mapping="{
-                                1: 'green',
-                                0: ''
-                            }"
-                        />
-                    </template>
-                </Column>
 
                 <Column field="is_header_menu" header="Header Menu" :sortable="true">
                     <template #body="{data}">
@@ -110,18 +88,6 @@ const {
 } = useCrudTable(crudTable);
 
 
-async function handleToggleFeatured(value, record) {
-    startRowLoading(record);
-
-    try {
-        const response = await window.axios.put(`api/solution_categories/${record.id}/toggleFeatured`);
-        record.is_featured = response.data.is_featured;
-    } catch (e) {
-        console.error(e);
-    } finally {
-        stopRowLoading(record);
-    }
-}
 async function handleToggleHeaderMenu(value, record) {
     startRowLoading(record);
     try {
