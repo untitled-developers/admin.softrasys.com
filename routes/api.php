@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\ContactFormsController;
+use App\Http\Controllers\GpsContactFormsController;
 use App\Http\Controllers\DemoRequestsController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\IndustriesController;
@@ -30,6 +31,9 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('contactForms')->group(function (){
         RoutesController::createResourcesRoutes(ContactFormsController::class);
+    });
+    Route::prefix('gpsContactForms')->group(function (){
+        RoutesController::createResourcesRoutes(GpsContactFormsController::class);
     });
     Route::prefix('faqs')->group(function (){
         RoutesController::createResourcesRoutes(FaqsController::class);

@@ -116,6 +116,14 @@ const router = createRouter({
                         title: 'Demo Forms'
                     }
                 },
+                {
+                    path: '/gps_contact_forms',
+                    name: 'GPS Demo Forms',
+                    component: () => import('@/js/app/pages/forms/gpsContactForm/TheGpsContactFormsPage.vue'),
+                    meta: {
+                        title: 'GPS Demo Forms'
+                    }
+                },
 
             ]
         }

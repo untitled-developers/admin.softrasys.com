@@ -97,6 +97,12 @@ const items = ref([
                     name: 'Demo Forms'
                 }
             },
+            {
+                label: 'GPS Demo Forms',
+                route: {
+                    name: 'GPS Demo Forms'
+                }
+            },
 
         ]
     },
