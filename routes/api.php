@@ -65,6 +65,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::get('/formData', [SolutionsController::class, 'getFormData']);
         Route::get('/{solution}', [SolutionsController::class, 'getRecord']);
         Route::put('/{id}/toggleHidden', [SolutionsController::class,'toggleHidden']);
+        Route::put('/{id}/toggleHeaderMenu', [SolutionsController::class,'toggleHeaderMenu']);
     });
 
     Route::prefix('industries')->group(function () {
