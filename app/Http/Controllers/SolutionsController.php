@@ -29,6 +29,7 @@ class SolutionsController extends CrudController
         'solutions.id',
         'solutions.sort_number',
         'solutions.is_hidden',
+        'solutions.is_header_menu',
         'solutions.slug',
         'solutions.btn_href',
         'solutions.created_at',
@@ -61,6 +62,7 @@ class SolutionsController extends CrudController
             $data = $this->initSaveModel($request, $model);
 
             $model->is_hidden = $data->is_hidden ?? false;
+            $model->is_header_menu = $data->is_header_menu ?? false;
             $model->sort_number = $data->sort_number ?? 0;
             $model->slug = Str::slug($data->languages->en->name);
             $model->slug = $model->slug . "-" . $model->id;
@@ -142,6 +144,15 @@ class SolutionsController extends CrudController
     {
         $model = $this->getModel($id);
         $model->is_hidden = !$model->is_hidden;
+        $model->save();
+
+        return response()->json($this->getModel($id));
+    }
+
+    public function toggleHeaderMenu($id)
+    {
+        $model = $this->getModel($id);
+        $model->is_header_menu = !$model->is_header_menu;
         $model->save();
 
         return response()->json($this->getModel($id));

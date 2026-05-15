@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class SolutionCategorySeeder extends Seeder
 {
@@ -14,36 +13,28 @@ class SolutionCategorySeeder extends Seeder
     {
         $categories = [
             [
-                'slug'        => 'tracking-analytics',
-                'sort_number' => 1,
-                'is_header_menu' => true,
-                'is_featured' => true,
-                'name'        => 'Tracking & Analytics',
-                'short_description' => 'Real-time GPS tracking and advanced data analytics to maximize fleet visibility and operational intelligence.',
+                'slug'              => 'fleet-management',
+                'sort_number'       => 1,
+                'is_header_menu'    => true,
+                'is_featured'       => true,
+                'name'              => 'Fleet Management',
+                'short_description' => 'End-to-end fleet intelligence platform combining real-time tracking, analytics, operations, surveillance, and maintenance to maximize fleet performance.',
             ],
             [
-                'slug'        => 'fleet-operations',
-                'sort_number' => 2,
-                'is_header_menu' => true,
-                'is_featured' => true,
-                'name'        => 'Fleet Operations',
-                'short_description' => 'End-to-end tools for managing, scheduling, and dispatching your fleet with maximum efficiency.',
+                'slug'              => 'ai-development-consulting',
+                'sort_number'       => 2,
+                'is_header_menu'    => true,
+                'is_featured'       => true,
+                'name'              => 'AI Development & Consulting Services',
+                'short_description' => 'Cutting-edge AI solutions and consulting services to drive digital transformation, automate workflows, and unlock new business opportunities.',
             ],
             [
-                'slug'        => 'maintenance-safety',
-                'sort_number' => 3,
-                'is_header_menu' => true,
-                'is_featured' => true,
-                'name'        => 'Maintenance & Safety',
-                'short_description' => 'Proactive maintenance management and comprehensive surveillance solutions to keep your fleet safe and reliable.',
-            ],
-            [
-                'slug'        => 'integration',
-                'sort_number' => 4,
-                'is_header_menu' => false,
-                'is_featured' => false,
-                'name'        => 'Integration',
-                'short_description' => 'Robust API services that connect our platform seamlessly with your existing business systems and workflows.',
+                'slug'              => 'software-development',
+                'sort_number'       => 3,
+                'is_header_menu'    => true,
+                'is_featured'       => true,
+                'name'              => 'Software Development Services',
+                'short_description' => 'Custom software development and API integration services tailored to your business needs and existing systems.',
             ],
         ];
 
