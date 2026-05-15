@@ -28,8 +28,6 @@ class SolutionCategoriesController extends CrudController
     protected array $selectColumns = [
         'solution_categories.id',
         'solution_categories.slug',
-        'solution_categories.blob_id',
-        'blobs.url as blob_url',
         'solution_categories.sort_number',
         'solution_categories.is_hidden',
         'solution_categories.is_header_menu',
@@ -37,7 +35,7 @@ class SolutionCategoriesController extends CrudController
         'solution_categories.created_at',
         'solution_categories.updated_at',
         'solution_category_languages.name',
-        'solution_category_languages.short_description',
+        'solution_category_languages.description',
     ];
 
     public function __construct()
@@ -45,7 +43,7 @@ class SolutionCategoriesController extends CrudController
         $this->searchFields = [
             SearchableField::create('solution_categories.id', SearchTypes::$EXACT),
             SearchableField::create('solution_category_languages.name', SearchTypes::$CONTAINS),
-            SearchableField::create('solution_category_languages.short_description', SearchTypes::$CONTAINS),
+            SearchableField::create('solution_category_languages.description', SearchTypes::$CONTAINS),
         ];
     }
 
@@ -54,7 +52,6 @@ class SolutionCategoriesController extends CrudController
         return parent::builder()
             ->leftJoin('solution_category_languages', 'solution_category_languages.solution_category_id', '=', 'solution_categories.id')
             ->leftJoin('languages', 'solution_category_languages.language_id', '=', 'languages.id')
-            ->leftJoin('blobs', 'solution_categories.blob_id', '=', 'blobs.id')
             ->where('solution_category_languages.language_id', '=', 1);
     }
 
@@ -75,7 +72,7 @@ class SolutionCategoriesController extends CrudController
 
             if (property_exists($data, 'languages')) {
                 $this->updateLanguages(
-                    ['name', 'short_description'],
+                    ['name', 'description'],
                     json_decode(json_encode($data->languages), true),
                     $model->id
                 );
@@ -94,8 +91,6 @@ class SolutionCategoriesController extends CrudController
     public function getRecord(SolutionCategory $solutionCategory)
     {
         $languages = $solutionCategory->languages->toArray();
-        $solutionCategory->load('blob');
-
         $solutionCategory = $solutionCategory->toArray();
 
         $solutionCategory['languages'] = [];
