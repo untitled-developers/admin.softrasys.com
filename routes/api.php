@@ -8,6 +8,7 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\IndustriesController;
 use App\Http\Controllers\LanguagesController;
 use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\PartnersController;
 use App\Http\Controllers\ResellersController;
 use App\Http\Controllers\SolutionCategoriesController;
 use App\Http\Controllers\SolutionsController;
@@ -75,5 +76,10 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         RoutesController::createResourcesRoutes(AccessoriesController::class);
         Route::get('/{accessory}', [AccessoriesController::class, 'getRecord']);
         Route::put('/{id}/toggleHidden', [AccessoriesController::class,'toggleHidden']);
+    });
+    Route::prefix('partners')->group(function () {
+        RoutesController::createResourcesRoutes(PartnersController::class);
+        Route::put('/{id}/toggleHidden', [PartnersController::class, 'toggleHidden']);
+        Route::put('/{partner}', [PartnersController::class, 'getRecord']);
     });
 });

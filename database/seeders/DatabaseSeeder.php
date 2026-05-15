@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             SolutionSeeder::class,
             AccessorySeeder::class,
             IndustrySeeder::class,
+            PartnerSeeder::class,
         ]);
     }
 }
