@@ -15,7 +15,6 @@ return new class extends Migration
                 ->constrained('blobs')
                 ->nullOnDelete();
             $table->boolean('is_hidden')->default(false);
-            $table->boolean('is_header_menu')->default(false);
             $table->unsignedInteger('sort_number')->default(0);
             $table->string('slug')->unique();
             $table->string('btn_href')->nullable();
