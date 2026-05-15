@@ -17,22 +17,6 @@
     >
         <template #content="{getErrors, handleSubmit, didSubmit}">
             <form id="solution-category-form" @submit.prevent="handleSubmit" class="flex flex-col gap-y-4">
-                <div class="flex justify-center gap-x-4">
-                    <div class="cursor-pointer">
-                        <BaseInputContainer
-                            label="Image*"
-                            :errors="getErrors('image')"
-                            :show-errors="didSubmit">
-                            <div class="text-sm  mb-2 text-red-500">
-                                Max Size: 2MB
-                            </div>
-                            <BaseSingleImageUploader
-                                :image="record?.blob_url"
-                                @change="handleImageChange"
-                            />
-                        </BaseInputContainer>
-                    </div>
-                </div>
 
                 <div class="grid grid-cols-12 gap-y-4 gap-x-2">
                     <div class="col-span-12">
@@ -52,7 +36,7 @@
                                             :show-errors="didSubmit"
                                             :fields="[
                                             `languages.${lang.code}.name`,
-                                            `languages.${lang.code}.short_description`,
+                                            `languages.${lang.code}.description`,
                                             ]"
                                             :label="lang.name">
                                         </BaseDialogTabLabel>
@@ -70,14 +54,10 @@
                                         </BaseInputContainer>
 
                                         <BaseInputContainer
-                                            label="Short Description">
-                                            <BaseRichEditor
-                                                place-holder="Enter Short Description"
-                                                v-model="form.languages[lang.code].short_description"
-                                                :language="lang.code"
-                                                ref="editor"/>
-                                        </BaseInputContainer>
+                                            label="Enter Short Description">
+                                            <Textarea maxlength="120" v-model="form.languages[lang.code].description"/>
 
+                                        </BaseInputContainer>
                                     </div>
                                 </TabPanel>
                             </TabPanels>
@@ -110,6 +90,7 @@ import useEditDialog from "kockatoos-admin-ui/composables/useEditDialog.js";
 import BaseRichEditor from "kockatoos-admin-ui/components/BaseRichEditor.vue";
 import {useLanguagesStore} from "kockatoos-admin-ui/stores/LanguagesStore.js";
 import BaseSingleImageUploader from "kockatoos-admin-ui/components/BaseSingleImageUploader.vue";
+import Textarea from "primevue/textarea";
 
 
 const props = defineProps({
@@ -123,7 +104,6 @@ const languagesStore = useLanguagesStore()
 const {createFormSchema} = useCreateFormSchema({props})
 const form = ref({
     sort_number: 0,
-    image: null,
     languages: {}
 
 })
@@ -136,24 +116,17 @@ const formSchema = createFormSchema(zod.object({
         requiredLanguages: ['en'],
         languageSchema: zod.object({
             name: zod.string().nonempty('Name is required'),
-            short_description: zod.string().nonempty('Short description is required'),
+            description: zod.string().nonempty('Short description is required'),
         }),
-        image: props.record ? zod.any() : zod.object({}, {message: 'Image is required'}),
 
     })
 
-function handleImageChange(image) {
-    form.value.image = image
-}
 
 function requestBodyMapper(data) {
     let newData = {...data}
-    delete newData.image
 
     return {
         data: newData,
-        image: form.value.image,
-
     }
 }
 
@@ -177,7 +150,7 @@ async function recordMapper(data) {
                     newData.languages[lang.code] = {
                         language_id: lang.id,
                         name: '',
-                        short_description: '',
+                        description: '',
 
                     }
                 }
@@ -198,7 +171,7 @@ onBeforeMount(() => {
         form.value.languages[lang.code] = {
             language_id: lang.id,
             name: '',
-            short_description: '',
+            description: '',
 
         }
     })
