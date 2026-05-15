@@ -75,6 +75,12 @@ const items = ref([
             name: 'Locations'
         }
     },
+    {
+        label: 'Partners',
+        route: {
+            name: 'Partners'
+        }
+    },
 
     {
         label: 'Forms',

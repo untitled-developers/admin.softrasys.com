@@ -85,6 +85,14 @@ const router = createRouter({
                     }
                 },
                 {
+                    path: '/partners',
+                    name: 'Partners',
+                    component: () => import('@/js/app/pages/partners/ThePartnersPage.vue'),
+                    meta: {
+                        title: 'Partners'
+                    }
+                },
+                {
                     path: '/blobs',
                     name: 'Blobs',
                     component: () => import('@/js/app/pages/blobs/TheBlobsPage.vue'),
