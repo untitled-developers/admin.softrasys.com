@@ -116,7 +116,7 @@ const formSchema = createFormSchema(zod.object({
         requiredLanguages: ['en'],
         languageSchema: zod.object({
             name: zod.string().nonempty('Name is required'),
-            description: zod.string().nonempty('Short description is required'),
+
         }),
 
     })

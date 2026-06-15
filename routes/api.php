@@ -80,7 +80,7 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
     });
     Route::prefix('partners')->group(function () {
         RoutesController::createResourcesRoutes(PartnersController::class);
+        Route::get('/{partner}', [PartnersController::class, 'getRecord']);
         Route::put('/{id}/toggleHidden', [PartnersController::class, 'toggleHidden']);
-        Route::put('/{partner}', [PartnersController::class, 'getRecord']);
     });
 });

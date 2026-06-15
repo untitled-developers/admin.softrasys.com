@@ -192,12 +192,12 @@ const form = ref({
 
 
 const formSchema = createFormSchema(zod.object({
-        solution_category_id: zod.number(
-            {
-                invalid_type_error: 'Solution Category is required',
-                required_error: 'Solution Category is required'
-            }
-        )
+        // solution_category_id: zod.number(
+        //     {
+        //         invalid_type_error: 'Solution Category is required',
+        //         required_error: 'Solution Category is required'
+        //     }
+        // )
     }),
     {
         languages: languagesStore.languages.map(lang => lang.code),

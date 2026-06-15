@@ -10,4 +10,11 @@ class Partner extends BaseModel
     {
         return $this->belongsTo(Blob::class, 'blob_id');
     }
+
+        public function languages()
+    {
+        return $this->belongsToMany(Language::class, 'partner_languages', 'partner_id', 'language_id')
+            ->withPivot(['name', 'short_description'])
+            ->withTimestamps();
+    }
 }

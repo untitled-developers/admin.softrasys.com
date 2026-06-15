@@ -69,12 +69,10 @@
                                             <InputText maxlength="120" v-model="form.languages[lang.code].name"/>
                                         </BaseInputContainer>
                                         <BaseInputContainer
-                                            label="Short Description">
-                                            <BaseRichEditor
-                                                place-holder="Enter Short Description"
-                                                v-model="form.languages[lang.code].short_description"
-                                                :language="lang.code"
-                                                ref="editor"/>
+                                            :show-errors="didSubmit"
+                                            label="Description"
+                                            :errors="getErrors(`languages.${lang.code}.short_description`)">
+                                            <InputText maxlength="120" v-model="form.languages[lang.code].short_description"/>
                                         </BaseInputContainer>
                                     </div>
                                 </TabPanel>
