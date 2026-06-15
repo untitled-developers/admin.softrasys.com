@@ -29,6 +29,29 @@
                 <Column field="name" header="Name" :sortable="true"></Column>
                 <Column field="category_name" header="Category" :sortable="true"></Column>
                 <Column field="sort_number" header="Sort Number" :sortable="true"></Column>
+                <Column field="is_header_menu" header="Header Menu" :sortable="true">
+                    <template #body="{data}">
+                        <BaseTableToggleSelect
+                            @change="handleToggleHeaderMenu($event, data)"
+                            :options="[
+                                {
+                                    label: 'In Menu',
+                                    value: 1
+                                },
+                                {
+                                    label: 'Not In Menu',
+                                    value: 0
+                                }
+                            ]"
+                            :value="data.is_header_menu ? 1 : 0"
+                            :color-mapping="{
+                                1: 'green',
+                                0: ''
+                            }"
+                        />
+                    </template>
+                </Column>
+
                 <Column field="is_hidden" header="Status" :sortable="true">
                     <template #body="{data}">
                         <BaseTableToggleSelect
@@ -51,6 +74,7 @@
                         />
                     </template>
                 </Column>
+
             </template>
         </BaseCrudTable>
     </BasePageContent>
@@ -79,7 +103,17 @@ const solution_categories = ref([])
 const didLoadFormData = ref(false);
 
 
-
+async function handleToggleHeaderMenu(value, record) {
+    startRowLoading(record);
+    try {
+        const response = await window.axios.put(`api/solutions/${record.id}/toggleHeaderMenu`);
+        record.is_header_menu = response.data.is_header_menu;
+    } catch (e) {
+        alertError('Error', 'Failed to update header menu status');
+    } finally {
+        stopRowLoading(record);
+    }
+}
 async function handleToggleHidden(value, record) {
     startRowLoading(record);
     try {
