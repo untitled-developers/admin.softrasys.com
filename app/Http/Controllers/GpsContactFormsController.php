@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\GpsContactFormStatuses;
+use App\Models\GpsContactForm;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\GpsContactForm;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\CrudController;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchableField;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchTypes;
@@ -27,9 +29,16 @@ class GpsContactFormsController extends CrudController
         'gps_contact_forms.number_of_vehicles',
         'gps_contact_forms.country',
         'gps_contact_forms.message',
+        'gps_contact_forms.utm_source',
+        'gps_contact_forms.utm_campaign',
+        'gps_contact_forms.utm_medium',
+        'gps_contact_forms.utm_content',
+        'gps_contact_forms.referrer',
+        'gps_contact_forms.is_read',
+        'gps_contact_forms.admin_id',
+        'gps_contact_forms.status',
         'gps_contact_forms.created_at',
         'gps_contact_forms.updated_at',
-        'gps_contact_forms.source',
     ];
 
     public function __construct()
@@ -41,6 +50,9 @@ class GpsContactFormsController extends CrudController
             SearchableField::create('gps_contact_forms.phone_number', SearchTypes::$CONTAINS),
             SearchableField::create('gps_contact_forms.industry', SearchTypes::$CONTAINS),
             SearchableField::create('gps_contact_forms.country', SearchTypes::$CONTAINS),
+            SearchableField::create('gps_contact_forms.utm_source', SearchTypes::$CONTAINS),
+            SearchableField::create('gps_contact_forms.utm_campaign', SearchTypes::$CONTAINS),
+            SearchableField::create('gps_contact_forms.status', SearchTypes::$EXACT),
         ];
     }
 
@@ -55,7 +67,12 @@ class GpsContactFormsController extends CrudController
         $model->number_of_vehicles = $data->number_of_vehicles ?? 0;
         $model->country = $data->country ?? null;
         $model->message = $data->message ?? null;
-        $model->source = $data->source ?? null;
+        $model->utm_source = $data->utm_source ?? null;
+        $model->utm_campaign = $data->utm_campaign ?? null;
+        $model->utm_medium = $data->utm_medium ?? null;
+        $model->utm_content = $data->utm_content ?? null;
+        $model->referrer = $data->referrer ?? null;
+        $model->admin_id = $data->admin_id ?? null;
 
         $model->save();
         return $model;
@@ -64,5 +81,46 @@ class GpsContactFormsController extends CrudController
     protected function builder(): Builder
     {
         return parent::builder();
+    }
+
+    public function getRecord(GpsContactForm $gpsContactForm): JsonResponse
+    {
+        $gpsContactForm->load('admin');
+        return response()->json($gpsContactForm->toArray());
+    }
+
+    public function toggleRead($id): JsonResponse
+    {
+        $model = $this->getModel($id);
+        $model->is_read = !$model->is_read;
+        $model->save();
+        return response()->json($model);
+    }
+
+    public function toggleStatus(Request $request, $id): JsonResponse
+    {
+        $validStatuses = [
+            GpsContactFormStatuses::INTAKE,
+            GpsContactFormStatuses::QUALIFIED,
+            GpsContactFormStatuses::CONVERTED,
+            GpsContactFormStatuses::UNQUALIFIED,
+        ];
+
+        $status = $request->input('value');
+        $field = $request->input('field');
+
+        if ($field !== 'status') {
+            return response()->json(['error' => 'Invalid field'], 422);
+        }
+
+        if (!in_array($status, $validStatuses)) {
+            return response()->json(['error' => 'Invalid status'], 422);
+        }
+
+        $model = $this->getModel($id);
+        $model->status = $status;
+        $model->save();
+
+        return response()->json($model);
     }
 }
