@@ -60,7 +60,9 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::put('/{id}/toggleHidden', [LocationsController::class,'toggleHidden']);
     });
     Route::prefix('resellerForms')->group(function (){
+        Route::post("/{id}/updateStatus", [ResellersController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(ResellersController::class);
+        Route::put('/{id}/toggleRead', [ResellersController::class, 'toggleRead']);
     });
     Route::prefix('demoRequests')->group(function (){
         RoutesController::createResourcesRoutes(DemoRequestsController::class);
