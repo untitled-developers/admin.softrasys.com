@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccessoriesController;
+use App\Http\Controllers\CareerFormsController;
 use App\Http\Controllers\ContactFormsController;
 use App\Http\Controllers\GpsContactFormsController;
 use App\Http\Controllers\DemoRequestsController;
@@ -34,6 +35,11 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::post("/{id}/updateStatus", [ContactFormsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(ContactFormsController::class);
         Route::put('/{id}/toggleRead', [ContactFormsController::class, 'toggleRead']);
+    });
+    Route::prefix('careerForms')->group(function (){
+        Route::post("/{id}/updateStatus", [CareerFormsController::class, "toggleStatus"]);
+        RoutesController::createResourcesRoutes(CareerFormsController::class);
+        Route::put('/{id}/toggleRead', [CareerFormsController::class, 'toggleRead']);
     });
     Route::prefix('gpsContactForms')->group(function (){
         RoutesController::createResourcesRoutes(GpsContactFormsController::class);
