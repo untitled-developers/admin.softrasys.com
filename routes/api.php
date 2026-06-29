@@ -31,7 +31,9 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::get('/{solutionCategory}', [SolutionCategoriesController::class, 'getRecord']);
     });
     Route::prefix('contactForms')->group(function (){
+        Route::post("/{id}/updateStatus", [ContactFormsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(ContactFormsController::class);
+        Route::put('/{id}/toggleRead', [ContactFormsController::class, 'toggleRead']);
     });
     Route::prefix('gpsContactForms')->group(function (){
         RoutesController::createResourcesRoutes(GpsContactFormsController::class);
