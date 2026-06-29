@@ -42,7 +42,9 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::put('/{id}/toggleRead', [CareerFormsController::class, 'toggleRead']);
     });
     Route::prefix('gpsContactForms')->group(function (){
+        Route::post("/{id}/updateStatus", [GpsContactFormsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(GpsContactFormsController::class);
+        Route::put('/{id}/toggleRead', [GpsContactFormsController::class, 'toggleRead']);
     });
     Route::prefix('faqs')->group(function (){
         RoutesController::createResourcesRoutes(FaqsController::class);
