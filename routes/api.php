@@ -67,7 +67,9 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::put('/{id}/toggleRead', [ResellersController::class, 'toggleRead']);
     });
     Route::prefix('demoRequests')->group(function (){
+        Route::post("/{id}/updateStatus", [DemoRequestsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(DemoRequestsController::class);
+        Route::put('/{id}/toggleRead', [DemoRequestsController::class, 'toggleRead']);
     });
     Route::prefix('languages')->name('languages')->group(function () {
         RoutesController::createResourcesRoutes(LanguagesController::class);
