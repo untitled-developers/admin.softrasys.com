@@ -73,6 +73,11 @@ class CareerFormsController extends CrudController
         $model->admin_id = $data->admin_id ?? null;
         $model->save();
 
+        if ($request->file('file') != null) {
+            $this->updateBlob($request, $model, 'blob_id', 'file', isImage: false, keepName: true);
+            $model->save();
+        }
+
         return $model;
     }
 

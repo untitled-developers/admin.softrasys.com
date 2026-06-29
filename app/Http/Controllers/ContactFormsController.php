@@ -29,6 +29,7 @@ class ContactFormsController extends CrudController
         'contact_forms.number_of_vehicles',
         'contact_forms.country',
         'contact_forms.message',
+        'contact_forms.source',
         'contact_forms.utm_source',
         'contact_forms.utm_campaign',
         'contact_forms.utm_medium',
@@ -67,6 +68,7 @@ class ContactFormsController extends CrudController
         $model->number_of_vehicles = $data->number_of_vehicles ?? 0;
         $model->country = $data->country ?? null;
         $model->message = $data->message ?? null;
+        $model->source = $data->source ?? null;
         $model->utm_source = $data->utm_source ?? null;
         $model->utm_campaign = $data->utm_campaign ?? null;
         $model->utm_medium = $data->utm_medium ?? null;
