@@ -13,8 +13,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('gps_contact_forms', function (Blueprint $table) {
-            $table->renameColumn('source', 'utm_source');
             $table->renameColumn('campaign', 'utm_campaign');
+            $table->string('utm_source')->nullable();
             $table->string('utm_medium')->nullable();
             $table->string('utm_content')->nullable();
             $table->boolean('is_read')->default(false);
@@ -30,8 +30,7 @@ return new class extends Migration
     {
         Schema::table('gps_contact_forms', function (Blueprint $table) {
             $table->dropConstrainedForeignId('admin_id');
-            $table->dropColumn(['utm_medium', 'utm_content', 'is_read', 'status']);
-            $table->renameColumn('utm_source', 'source');
+            $table->dropColumn(['utm_source', 'utm_medium', 'utm_content', 'is_read', 'status']);
             $table->renameColumn('utm_campaign', 'campaign');
         });
     }

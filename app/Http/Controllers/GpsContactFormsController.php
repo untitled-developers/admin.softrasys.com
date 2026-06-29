@@ -29,6 +29,7 @@ class GpsContactFormsController extends CrudController
         'gps_contact_forms.number_of_vehicles',
         'gps_contact_forms.country',
         'gps_contact_forms.message',
+        'gps_contact_forms.source',
         'gps_contact_forms.utm_source',
         'gps_contact_forms.utm_campaign',
         'gps_contact_forms.utm_medium',
@@ -67,6 +68,7 @@ class GpsContactFormsController extends CrudController
         $model->number_of_vehicles = $data->number_of_vehicles ?? 0;
         $model->country = $data->country ?? null;
         $model->message = $data->message ?? null;
+        $model->source = $data->source ?? null;
         $model->utm_source = $data->utm_source ?? null;
         $model->utm_campaign = $data->utm_campaign ?? null;
         $model->utm_medium = $data->utm_medium ?? null;
