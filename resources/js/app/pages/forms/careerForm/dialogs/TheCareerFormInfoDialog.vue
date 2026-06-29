@@ -1,9 +1,9 @@
 <template>
     <BaseEditDialog
         :record="record"
-        record-type="Demo Form"
+        record-type="Career Form"
         :with-submit="false"
-        title="demo Form"
+        title="Career Form"
         width="800px"
         :position="position"
         @close="emit('close')"
@@ -23,25 +23,14 @@
                         </div>
                         <div class="bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
                             <dt class="font-semibold text-gray-800">Phone</dt>
-                            <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.phone }}</dd>
+                            <dd class="mt-1 sm:col-span-2 sm:mt-0" :class="record.phone_number ? 'text-gray-700' : 'text-gray-400 italic'">
+                                {{ record.phone_number || 'Not provided' }}</dd>
                         </div>
                         <div class="bg-white px-6 py-4 hover:bg-gray-50 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
                             <dt class="font-semibold text-gray-800">Email</dt>
                             <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.email }}</dd>
                         </div>
                         <div class="bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
-                            <dt class="font-semibold text-gray-800">Industry</dt>
-                            <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.industry }}</dd>
-                        </div>
-                        <div class="bg-white px-6 py-4 hover:bg-gray-50 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
-                            <dt class="font-semibold text-gray-800">Company Name</dt>
-                            <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.company_name }}</dd>
-                        </div>
-                        <div class="bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
-                            <dt class="font-semibold text-gray-800">Message</dt>
-                            <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ record.message }}</dd>
-                        </div>
-                        <div class="bg-white px-6 py-4 hover:bg-gray-50 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
                             <dt class="font-semibold text-gray-800">Submission Date</dt>
                             <dd class="mt-1 text-gray-700 sm:col-span-2 sm:mt-0">{{ formatDateTime(record.created_at) }}</dd>
                         </div>
@@ -61,6 +50,17 @@
                                 <Tag v-else-if="record.status === 'Unqualified'" severity="danger" value="Unqualified" />
                                 <Tag v-else-if="record.status === 'Qualified'" severity="info" value="Qualified" />
                                 <Tag v-else-if="record.status === 'Converted'" severity="success" value="Converted" />
+                            </dd>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-4 hover:bg-gray-100 transition-colors duration-150 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-4">
+                            <dt class="font-semibold text-gray-800">Attachment</dt>
+                            <dd class="mt-1 sm:col-span-2 sm:mt-0">
+                                <a v-if="record.blob_url"
+                                   class="text-sky-500 hover:text-sky-600 underline transition-colors duration-150"
+                                   :href="record.blob_url" target="_blank">
+                                    Download File
+                                </a>
+                                <span v-else class="text-gray-400 italic">No file uploaded</span>
                             </dd>
                         </div>
                     </dl>
@@ -130,11 +130,11 @@ const { alertError } = useAlerts();
 async function markAsRead() {
     if (props.record && props.record.is_read === 0) {
         try {
-            await window.axios.put(`api/demoRequests/${props.record.id}/toggleRead`);
+            await window.axios.put(`api/careerForms/${props.record.id}/toggleRead`);
             emit('submit');
         } catch (error) {
-            console.error('Error marking demo form as read:', error);
-            alertError('Failed to mark demo form as read');
+            console.error('Error marking career form as read:', error);
+            alertError('Failed to mark career form as read');
         }
     }
 }

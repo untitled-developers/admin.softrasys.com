@@ -132,6 +132,14 @@ const router = createRouter({
                         title: 'GPS Demo Forms'
                     }
                 },
+                {
+                    path: '/career_forms',
+                    name: 'Career Forms',
+                    component: () => import('@/js/app/pages/forms/careerForm/TheCareerFormsPage.vue'),
+                    meta: {
+                        title: 'Career Forms'
+                    }
+                },
 
             ]
         }

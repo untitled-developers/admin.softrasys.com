@@ -1,21 +1,30 @@
 <template>
-<BasePageContent>
+    <BasePageContent>
         <BaseCrudTable
-            endpoint="api/demoRequests"
+            endpoint="api/careerForms"
             :with-add="false"
             with-clear-filters
             edit-mode="cell"
             :filters="filters"
-            :edit-dialog="TheDemoFormInfoDialog"
+            :edit-dialog="TheCareerFormInfoDialog"
             :edit-button-config="{ label: 'Info' }"
             ref="crudTable">
             <template #columns="{ isFilterActive }">
+                <Column header="File">
+                    <template #body="{ data }">
+                        <a v-if="data.blob_url"
+                           class="text-sky-500 hover:text-sky-600 underline transition-colors duration-150"
+                           :href="data.blob_url" target="_blank">
+                            Download File
+                        </a>
+                        <span v-else>No file uploaded</span>
+                    </template>
+                </Column>
+
                 <Column field="id" header="ID" :sortable="true"/>
                 <Column field="name" header="Name" :sortable="true"/>
-                <Column field="phone" header="Phone" :sortable="true"/>
+                <Column field="phone_number" header="Phone" :sortable="true"/>
                 <Column field="email" header="Email" :sortable="true"/>
-                <Column field="industry" header="Industry" :sortable="true"/>
-                <Column field="company_name" header="Company Name" :sortable="true"/>
 
                 <Column field="status" filterField="status" :showFilterMatchModes="false"
                     :filterMenuStyle="{ width: '14rem' }" :sortable="true" header="Status">
@@ -74,7 +83,7 @@ import Tag from 'primevue/tag';
 import { FilterMatchMode } from '@primevue/core/api';
 import Select from "primevue/select";
 import Button from "primevue/button";
-import TheDemoFormInfoDialog from "@/js/app/pages/forms/demoForm/dialogs/TheDemoFormInfoDialog.vue";
+import TheCareerFormInfoDialog from "@/js/app/pages/forms/careerForm/dialogs/TheCareerFormInfoDialog.vue";
 import BaseCrudTableFilterButton from "kockatoos-admin-ui/components/BaseCrudTableFilterButton.vue";
 
 const crudTable = ref();
@@ -100,7 +109,7 @@ function handleCellEditComplete(event, field, data) {
     const post = { field, value: event.value };
     startRowLoading(data);
     isUpdatingData = true;
-    axios.post(`api/demoRequests/${data.id}/updateStatus`, post)
+    axios.post(`api/careerForms/${data.id}/updateStatus`, post)
         .then(() => {
             fetchTableData();
             stopRowLoading(data);
