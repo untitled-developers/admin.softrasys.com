@@ -17,7 +17,7 @@
                 <Column field="industry" header="Industry" :sortable="true"/>
                 <Column field="number_of_vehicles" header="Number of Vehicles" :sortable="true"/>
                 <Column field="country" header="Country" :sortable="true"/>
-
+                <Column field="source" header="Source" :sortable="true"/>
                 <Column field="status" filterField="status" :showFilterMatchModes="false"
                     :filterMenuStyle="{ width: '14rem' }" :sortable="true" header="Status">
                     <template #filtericon>
