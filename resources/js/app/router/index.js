@@ -132,6 +132,54 @@ const router = createRouter({
                         title: 'GPS Demo Forms'
                     }
                 },
+                {
+                    path: '/gps_features',
+                    name: 'GPS Features',
+                    component: () => import('@/js/app/pages/gpsFeatures/TheGpsFeaturesPage.vue'),
+                    meta: {
+                        title: 'GPS Features'
+                    }
+                },
+                {
+                    path: '/gps_stats',
+                    name: 'GPS Stats',
+                    component: () => import('@/js/app/pages/gpsStats/TheGpsStatsPage.vue'),
+                    meta: {
+                        title: 'GPS Stats'
+                    }
+                },
+                {
+                    path: '/gps_industries',
+                    name: 'GPS Industries',
+                    component: () => import('@/js/app/pages/gpsIndustries/TheGpsIndustriesPage.vue'),
+                    meta: {
+                        title: 'GPS Industries'
+                    }
+                },
+                {
+                    path: '/gps_testimonials',
+                    name: 'GPS Testimonials',
+                    component: () => import('@/js/app/pages/gpsTestimonials/TheGpsTestimonialsPage.vue'),
+                    meta: {
+                        title: 'GPS Testimonials'
+                    }
+                },
+                {
+                    path: '/gps_screenshots',
+                    name: 'GPS Screenshots',
+                    component: () => import('@/js/app/pages/gpsScreenshots/TheGpsScreenshotsPage.vue'),
+                    meta: {
+                        title: 'GPS Screenshots'
+                    }
+                },
+                {
+                    path: '/gps_faqs',
+                    name: 'GPS FAQs',
+                    component: () => import('@/js/app/pages/gpsFaqs/TheGpsFaqsPage.vue'),
+                    meta: {
+                        title: 'GPS FAQs'
+                    }
+                },
 
             ]
         }

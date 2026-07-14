@@ -14,6 +14,12 @@ use App\Http\Controllers\SolutionCategoriesController;
 use App\Http\Controllers\SolutionsController;
 use App\Http\Controllers\TestimonialsController;
 use App\Http\Controllers\CareersController;
+use App\Http\Controllers\GpsFeaturesController;
+use App\Http\Controllers\GpsStatsController;
+use App\Http\Controllers\GpsIndustriesController;
+use App\Http\Controllers\GpsTestimonialsController;
+use App\Http\Controllers\GpsScreenshotsController;
+use App\Http\Controllers\GpsFaqsController;
 use Illuminate\Support\Facades\Route;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\RoutesController;
 
@@ -82,5 +88,36 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         RoutesController::createResourcesRoutes(PartnersController::class);
         Route::get('/{partner}', [PartnersController::class, 'getRecord']);
         Route::put('/{id}/toggleHidden', [PartnersController::class, 'toggleHidden']);
+    });
+
+    Route::prefix('gps_features')->group(function () {
+        RoutesController::createResourcesRoutes(GpsFeaturesController::class);
+        Route::put('/{id}/toggleHidden', [GpsFeaturesController::class, 'toggleHidden']);
+        Route::get('/{gpsFeature}', [GpsFeaturesController::class, 'getRecord']);
+    });
+    Route::prefix('gps_stats')->group(function () {
+        RoutesController::createResourcesRoutes(GpsStatsController::class);
+        Route::put('/{id}/toggleHidden', [GpsStatsController::class, 'toggleHidden']);
+        Route::get('/{gpsStat}', [GpsStatsController::class, 'getRecord']);
+    });
+    Route::prefix('gps_industries')->group(function () {
+        RoutesController::createResourcesRoutes(GpsIndustriesController::class);
+        Route::put('/{id}/toggleHidden', [GpsIndustriesController::class, 'toggleHidden']);
+        Route::get('/{gpsIndustry}', [GpsIndustriesController::class, 'getRecord']);
+    });
+    Route::prefix('gps_testimonials')->group(function () {
+        RoutesController::createResourcesRoutes(GpsTestimonialsController::class);
+        Route::put('/{id}/toggleHidden', [GpsTestimonialsController::class, 'toggleHidden']);
+        Route::get('/{gpsTestimonial}', [GpsTestimonialsController::class, 'getRecord']);
+    });
+    Route::prefix('gps_screenshots')->group(function () {
+        RoutesController::createResourcesRoutes(GpsScreenshotsController::class);
+        Route::put('/{id}/toggleHidden', [GpsScreenshotsController::class, 'toggleHidden']);
+        Route::get('/{gpsScreenshot}', [GpsScreenshotsController::class, 'getRecord']);
+    });
+    Route::prefix('gps_faqs')->group(function () {
+        RoutesController::createResourcesRoutes(GpsFaqsController::class);
+        Route::put('/{id}/toggleHidden', [GpsFaqsController::class, 'toggleHidden']);
+        Route::get('/{gpsFaq}', [GpsFaqsController::class, 'getRecord']);
     });
 });

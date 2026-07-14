@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             AccessorySeeder::class,
             IndustrySeeder::class,
             PartnerSeeder::class,
+            GpsPageSeeder::class,
         ]);
     }
 }

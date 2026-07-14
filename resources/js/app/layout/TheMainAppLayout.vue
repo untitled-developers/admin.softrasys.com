@@ -83,6 +83,47 @@ const items = ref([
     },
 
     {
+        label: 'GPS Page',
+        items: [
+            {
+                label: 'GPS Features',
+                route: {
+                    name: 'GPS Features'
+                }
+            },
+            {
+                label: 'GPS Stats',
+                route: {
+                    name: 'GPS Stats'
+                }
+            },
+            {
+                label: 'GPS Industries',
+                route: {
+                    name: 'GPS Industries'
+                }
+            },
+            {
+                label: 'GPS Testimonials',
+                route: {
+                    name: 'GPS Testimonials'
+                }
+            },
+            {
+                label: 'GPS Screenshots',
+                route: {
+                    name: 'GPS Screenshots'
+                }
+            },
+            {
+                label: 'GPS FAQs',
+                route: {
+                    name: 'GPS FAQs'
+                }
+            },
+        ]
+    },
+    {
         label: 'Forms',
         items: [
             {
