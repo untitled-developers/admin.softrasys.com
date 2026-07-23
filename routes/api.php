@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccessoriesController;
+use App\Http\Controllers\CareerFormsController;
 use App\Http\Controllers\ContactFormsController;
 use App\Http\Controllers\GpsContactFormsController;
 use App\Http\Controllers\DemoRequestsController;
@@ -37,10 +38,19 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::get('/{solutionCategory}', [SolutionCategoriesController::class, 'getRecord']);
     });
     Route::prefix('contactForms')->group(function (){
+        Route::post("/{id}/updateStatus", [ContactFormsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(ContactFormsController::class);
+        Route::put('/{id}/toggleRead', [ContactFormsController::class, 'toggleRead']);
+    });
+    Route::prefix('careerForms')->group(function (){
+        Route::post("/{id}/updateStatus", [CareerFormsController::class, "toggleStatus"]);
+        RoutesController::createResourcesRoutes(CareerFormsController::class);
+        Route::put('/{id}/toggleRead', [CareerFormsController::class, 'toggleRead']);
     });
     Route::prefix('gpsContactForms')->group(function (){
+        Route::post("/{id}/updateStatus", [GpsContactFormsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(GpsContactFormsController::class);
+        Route::put('/{id}/toggleRead', [GpsContactFormsController::class, 'toggleRead']);
     });
     Route::prefix('faqs')->group(function (){
         RoutesController::createResourcesRoutes(FaqsController::class);
@@ -58,10 +68,14 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
         Route::put('/{id}/toggleHidden', [LocationsController::class,'toggleHidden']);
     });
     Route::prefix('resellerForms')->group(function (){
+        Route::post("/{id}/updateStatus", [ResellersController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(ResellersController::class);
+        Route::put('/{id}/toggleRead', [ResellersController::class, 'toggleRead']);
     });
     Route::prefix('demoRequests')->group(function (){
+        Route::post("/{id}/updateStatus", [DemoRequestsController::class, "toggleStatus"]);
         RoutesController::createResourcesRoutes(DemoRequestsController::class);
+        Route::put('/{id}/toggleRead', [DemoRequestsController::class, 'toggleRead']);
     });
     Route::prefix('languages')->name('languages')->group(function () {
         RoutesController::createResourcesRoutes(LanguagesController::class);

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 
 class Reseller extends BaseModel
 {
-    //
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

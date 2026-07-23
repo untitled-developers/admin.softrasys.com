@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use UntitledDevelopers\KockatoosAdminCore\Models\Admin;
 use UntitledDevelopers\KockatoosAdminCore\Models\BaseModel;
 
 class DemoRequest extends BaseModel
 {
-    //
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
+    }
 }

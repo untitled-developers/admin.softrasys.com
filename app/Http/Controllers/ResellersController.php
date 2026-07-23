@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResellerFormStatuses;
+use App\Models\Reseller;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
-use App\Models\Reseller;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\CrudController;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchableField;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchTypes;
@@ -27,6 +29,14 @@ class ResellersController extends CrudController
         'resellers.website',
         'resellers.industry',
         'resellers.message',
+        'resellers.utm_source',
+        'resellers.utm_campaign',
+        'resellers.utm_medium',
+        'resellers.utm_content',
+        'resellers.referrer',
+        'resellers.is_read',
+        'resellers.admin_id',
+        'resellers.status',
         'resellers.created_at',
         'resellers.updated_at',
     ];
@@ -42,6 +52,9 @@ class ResellersController extends CrudController
             SearchableField::create('resellers.website', SearchTypes::$CONTAINS),
             SearchableField::create('resellers.industry', SearchTypes::$CONTAINS),
             SearchableField::create('resellers.message', SearchTypes::$CONTAINS),
+            SearchableField::create('resellers.utm_source', SearchTypes::$CONTAINS),
+            SearchableField::create('resellers.utm_campaign', SearchTypes::$CONTAINS),
+            SearchableField::create('resellers.status', SearchTypes::$EXACT),
         ];
     }
 
@@ -56,6 +69,12 @@ class ResellersController extends CrudController
         $model->website = $data->website ?? null;
         $model->industry = $data->industry ?? null;
         $model->message = $data->message ?? null;
+        $model->utm_source = $data->utm_source ?? null;
+        $model->utm_campaign = $data->utm_campaign ?? null;
+        $model->utm_medium = $data->utm_medium ?? null;
+        $model->utm_content = $data->utm_content ?? null;
+        $model->referrer = $data->referrer ?? null;
+        $model->admin_id = $data->admin_id ?? null;
 
         $model->save();
         return $model;
@@ -64,5 +83,46 @@ class ResellersController extends CrudController
     protected function builder(): Builder
     {
         return parent::builder();
+    }
+
+    public function getRecord(Reseller $reseller): JsonResponse
+    {
+        $reseller->load('admin');
+        return response()->json($reseller->toArray());
+    }
+
+    public function toggleRead($id): JsonResponse
+    {
+        $model = $this->getModel($id);
+        $model->is_read = !$model->is_read;
+        $model->save();
+        return response()->json($model);
+    }
+
+    public function toggleStatus(Request $request, $id): JsonResponse
+    {
+        $validStatuses = [
+            ResellerFormStatuses::INTAKE,
+            ResellerFormStatuses::QUALIFIED,
+            ResellerFormStatuses::CONVERTED,
+            ResellerFormStatuses::UNQUALIFIED,
+        ];
+
+        $status = $request->input('value');
+        $field = $request->input('field');
+
+        if ($field !== 'status') {
+            return response()->json(['error' => 'Invalid field'], 422);
+        }
+
+        if (!in_array($status, $validStatuses)) {
+            return response()->json(['error' => 'Invalid status'], 422);
+        }
+
+        $model = $this->getModel($id);
+        $model->status = $status;
+        $model->save();
+
+        return response()->json($model);
     }
 }
