@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory} from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import TheMainAppLayout from "@/js/app/layout/TheMainAppLayout.vue";
 
 const router = createRouter({
@@ -178,6 +178,14 @@ const router = createRouter({
                     component: () => import('@/js/app/pages/gpsFaqs/TheGpsFaqsPage.vue'),
                     meta: {
                         title: 'GPS FAQs'
+                    },
+                },
+                {
+                    path: '/career_forms',
+                    name: 'Career Forms',
+                    component: () => import('@/js/app/pages/forms/careerForm/TheCareerFormsPage.vue'),
+                    meta: {
+                        title: 'Career Forms'
                     }
                 },
 

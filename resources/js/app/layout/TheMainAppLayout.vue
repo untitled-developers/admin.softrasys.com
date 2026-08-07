@@ -150,6 +150,12 @@ const items = ref([
                     name: 'GPS Demo Forms'
                 }
             },
+            {
+                label: 'Career Forms',
+                route: {
+                    name: 'Career Forms'
+                }
+            },
 
         ]
     },
