@@ -70,10 +70,19 @@
                                         </BaseInputContainer>
                                         <BaseInputContainer
                                             :show-errors="didSubmit"
-                                            label="Description"
+                                            label="Short Description"
                                             :errors="getErrors(`languages.${lang.code}.short_description`)">
-                                            <InputText maxlength="120" v-model="form.languages[lang.code].short_description"/>
+                                            <Textarea
+                                                class="w-full"
+                                                v-model="form.languages[lang.code].short_description"
+                                                :maxlength="120"
+                                                :rows="3"
+                                            />
+                                            <div class="text-right text-sm text-gray-500">
+                                                {{ 120 - form.languages[lang.code].short_description.length }} characters remaining
+                                            </div>
                                         </BaseInputContainer>
+
                                     </div>
                                 </TabPanel>
                             </TabPanels>
