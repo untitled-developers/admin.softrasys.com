@@ -25,10 +25,6 @@ class LocationSeeder extends Seeder
                 'longitude' => 35.5692672604137,
                 'latitude' =>  33.89086620166421,
                 'location_link' => 'https://maps.app.goo.gl/z6JuZe2QuYQf4Vc67',
-                'is_hidden' => 0,
-                'created_at' => now(),
-                'updated_at' => now(),
-
             ],
             [
                 'name' => 'MASARI AL SAHIH / Syria Branch',
@@ -41,9 +37,6 @@ class LocationSeeder extends Seeder
                 'longitude' => 36.27315447239067,
                 'latitude' =>  33.51168970004839,
                 'location_link' => 'https://maps.app.goo.gl/G64UgM6wGFioQL1GA',
-                'is_hidden' => 0,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'name' => 'TRACAY S.A.R.L. / French Guiana Branch',
@@ -56,9 +49,6 @@ class LocationSeeder extends Seeder
                 'longitude' => -52.245299430684206,
                 'latitude' => 4.880261984036498,
                 'location_link' => 'https://maps.app.goo.gl/jECskzj3TUiLzQ1f9',
-                'is_hidden' => 0,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
             [
                 'name' => 'Karam Electronics / Agent',
@@ -71,12 +61,34 @@ class LocationSeeder extends Seeder
                 'longitude' => 35.56817625846338,
                 'latitude' => 33.85853740200712,
                 'location_link' => 'https://maps.app.goo.gl/hZSZX6zJXWFyi2YR7',
-                'is_hidden' => 0,
-                'created_at' => now(),
-                'updated_at' => now(),
             ],
         ];
 
-        DB::table('locations')->insert($locations);
+        foreach ($locations as $location) {
+            $locationId = DB::table('locations')->insertGetId([
+                'sort_number' => $location['sort_number'],
+                'email' => $location['email'],
+                'phone_number' => $location['phone_number'],
+                'fax_number' => $location['fax_number'],
+                'support_number' => $location['support_number'],
+                'longitude' => $location['longitude'],
+                'latitude' => $location['latitude'],
+                'location_link' => $location['location_link'],
+                'is_hidden' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            foreach ([1, 2, 3] as $langId) {
+                DB::table('location_languages')->insert([
+                    'location_id' => $locationId,
+                    'language_id' => $langId,
+                    'name' => $location['name'],
+                    'address' => $location['address'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
     }
 }

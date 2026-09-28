@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use App\Models\LocationLanguage;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\CrudController;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchableField;
 use UntitledDevelopers\KockatoosAdminCore\Http\Controllers\CRUD\SearchTypes;
@@ -14,72 +19,104 @@ class LocationsController extends CrudController
 {
     protected string $table = 'locations';
     protected string $modelClass = Location::class;
-    protected string $filesDirectory = 'locations';
-    protected array  $searchFields;
-    protected bool   $safeDelete = false;
+    protected string $languageModelClass = LocationLanguage::class;
+    protected array $searchFields;
+    protected bool $safeDelete = false;
 
     protected array $selectColumns = [
         'locations.id',
-        'locations.name',
         'locations.sort_number',
-        'locations.address',
         'locations.email',
         'locations.phone_number',
         'locations.fax_number',
         'locations.support_number',
-        'locations.is_hidden',
-        'locations.location_link',
         'locations.latitude',
         'locations.longitude',
+        'locations.location_link',
+        'locations.is_hidden',
         'locations.created_at',
         'locations.updated_at',
+        'location_languages.name',
+        'location_languages.address',
     ];
 
     public function __construct()
     {
         $this->searchFields = [
-            SearchableField::create('locations.id',SearchTypes::$EXACT),
-            SearchableField::create('locations.name', SearchTypes::$CONTAINS),
+            SearchableField::create('locations.id', SearchTypes::$EXACT),
+            SearchableField::create('location_languages.name', SearchTypes::$CONTAINS),
+            SearchableField::create('location_languages.address', SearchTypes::$CONTAINS),
             SearchableField::create('locations.email', SearchTypes::$CONTAINS),
             SearchableField::create('locations.phone_number', SearchTypes::$CONTAINS),
-            SearchableField::create('locations.address', SearchTypes::$CONTAINS),
             SearchableField::create('locations.longitude', SearchTypes::$CONTAINS),
             SearchableField::create('locations.latitude', SearchTypes::$CONTAINS),
         ];
     }
 
-    /**
-     * Create/Update handler
-     */
+    protected function builder(): Builder
+    {
+        return parent::builder()
+            ->leftJoin('location_languages', 'location_languages.location_id', '=', 'locations.id')
+            ->leftJoin('languages', 'location_languages.language_id', '=', 'languages.id')
+            ->where('location_languages.language_id', '=', 1);
+    }
+
     protected function saveModel(Request $request, BaseModel $model, bool $isNew): BaseModel
     {
-        $data = $this->initSaveModel($request, $model);
+        try {
+            DB::beginTransaction();
 
-        $model->name = $data->name;
-        $model->sort_number  = $data->sort_number ?? 0;
-        $model->address = $data->address  ?? null;
-        $model->email = $data->email ?? null;
-        $model->phone_number = $data->phone_number ?? null;
-        $model->fax_number = $data->fax_number ?? null;
-        $model->latitude = $data->latitude ?? null;
-        $model->longitude = $data->longitude ?? null;
-        $model->support_number= $data->support_number ?? null;
-        $model->location_link = $data->location_link ?? null;
+            $data = $this->initSaveModel($request, $model);
 
-        $model->save();
+            $model->sort_number = $data->sort_number ?? 0;
+            $model->email = $data->email ?? null;
+            $model->phone_number = $data->phone_number ?? null;
+            $model->fax_number = $data->fax_number ?? null;
+            $model->support_number = $data->support_number ?? null;
+            $model->latitude = $data->latitude ?? null;
+            $model->longitude = $data->longitude ?? null;
+            $model->location_link = $data->location_link ?? null;
+            $model->save();
+
+            if (property_exists($data, 'languages')) {
+                $this->updateLanguages(
+                    ['name', 'address'],
+                    json_decode(json_encode($data->languages), true),
+                    $model->id
+                );
+            }
+
+            DB::commit();
+        } catch (Throwable $exception) {
+            DB::rollBack();
+            Log::error($exception);
+            throw $exception;
+        }
+
         return $model;
     }
 
-    protected function builder(): Builder
+    public function getRecord(Location $location)
     {
-        return parent::builder();
+        $languages = $location->languages->toArray();
+
+        $location = $location->toArray();
+
+        $location['languages'] = [];
+        foreach ($languages as $language) {
+            if (isset($language['code'])) {
+                $location['languages'][$language['code']] = $language['pivot'];
+            }
+        }
+
+        return response()->json($location);
     }
-    public function toggleHidden($id)
+
+    public function toggleHidden($id): JsonResponse
     {
         $model = $this->getModel($id);
         $model->is_hidden = !$model->is_hidden;
         $model->save();
-
-        return response()->json($this->getModel($id));
+        return response()->json($model);
     }
 }
