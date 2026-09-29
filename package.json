@@ -8,26 +8,26 @@
     },
     "dependencies": {
         "@primeuix/themes": "^2.0.3",
-        "@primevue/core": "^5.0.0",
-        "@tailwindcss/vite": "^4.3.1",
+        "@primevue/core": "^4.5.5",
+        "@tailwindcss/vite": "^4.3.3",
         "@vueuse/core": "^14.3.0",
         "@vueuse/integrations": "^14.3.0",
-        "axios": "^1.18.0",
+        "axios": "^1.18.1",
         "echarts": "^6.1.0",
         "kockatoos-admin-ui": "github:untitled-developers/kockatoos-admin-ui#v2.5.0",
         "pinia": "^3.0.4",
         "primeicons": "^7.0.0",
         "primevue": "^4.5.5",
         "sortablejs": "^1.15.7",
-        "tailwindcss": "^4.3.1",
+        "tailwindcss": "^4.3.3",
         "tailwindcss-primeui": "^0.6.1",
-        "vue": "^3.5.38",
-        "vue-router": "^5.1.0",
+        "vue": "^3.5.40",
+        "vue-router": "^5.2.0",
         "zod": "^3.25.76"
     },
     "devDependencies": {
-        "@vitejs/plugin-vue": "^6.0.7",
-        "laravel-vite-plugin": "^3.1.0",
-        "vite": "^8.0.16"
+        "@vitejs/plugin-vue": "^6.0.8",
+        "laravel-vite-plugin": "^3.1.3",
+        "vite": "^8.1.5"
     }
 }
