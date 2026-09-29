@@ -140,7 +140,7 @@ const dialog = ref(null)
 const {startDialogLoading, stopDialogLoading} = useEditDialog(dialog)
 const languagesStore = useLanguagesStore()
 const {createFormSchema} = useCreateFormSchema({props})
-const mapAPIKey = ref('AIzaSyCncIBn6fIbklWaqhaNtVAMJnIUDivg1As')
+const mapAPIKey = ref(import.meta.env.VITE_GOOGLE_MAPS_API_KEY)
 const form = ref({
     email: '',
     phone_number: '',
