@@ -14,7 +14,7 @@
         "@vueuse/integrations": "^14.3.0",
         "axios": "^1.18.0",
         "echarts": "^6.1.0",
-        "kockatoos-admin-ui": "github:untitled-developers/kockatoos-admin-ui#v2.3.8",
+        "kockatoos-admin-ui": "github:untitled-developers/kockatoos-admin-ui#v2.5.0",
         "pinia": "^3.0.4",
         "primeicons": "^7.0.0",
         "primevue": "^4.5.5",
